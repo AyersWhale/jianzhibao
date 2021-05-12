@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.pgyersdk:sdk:3.0.10@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-3.0.10.aar/37be2b06bc6f3b4ac2a521ae7bfd4eb1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-3.0.10.aar/37be2b06bc6f3b4ac2a521ae7bfd4eb1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pgyersdk/sdk/3.0.10/86d38b815c49356c02cd7f442816b19d8aebad86/sdk-3.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

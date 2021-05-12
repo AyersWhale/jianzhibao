@@ -1,0 +1,19 @@
+rootProject.name = 'jianzhibao'
+include ':react-native-compress'
+project(':react-native-compress').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-compress/android')
+include ':react-native-pdf'
+project(':react-native-pdf').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-pdf/android')
+include ':rn-fetch-blob'
+project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
+
+include ':app', ':c2-mobile',':react-native-vector-icons',':c2-mobile-push'
+project(':c2-mobile').projectDir = new File(rootProject.projectDir, '../node_modules/c2-mobile/android/')
+project(':c2-mobile-push').projectDir = new File(rootProject.projectDir, '../node_modules/c2-mobile-push/android/')
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-camera/android')
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+include ':c2-mobile-amap'
+project(':c2-mobile-amap').projectDir = new File(rootProject.projectDir, '../node_modules/c2-mobile-amap/android/')
+include ':c2-mobile-qrcode'
+project(':c2-mobile-qrcode').projectDir = new File(rootProject.projectDir, '../node_modules/c2-mobile-qrcode/android/')

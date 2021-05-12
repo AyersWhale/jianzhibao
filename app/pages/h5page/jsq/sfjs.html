@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=gbk"/>
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/> 
+<meta name="format-detection" content="telephone=no" />
+<meta name="keywords" content="贷款计算器,最新贷款计算器,2016贷款计算器" />
+<meta name="description" content="房产网为购房者提供2016最新房贷计算器及各种在线购房工具。可以进行商业贷款、公积金贷款、组合贷款等多种计算。" />
+<title>最新房贷计算器 </title>
+<link type="text/css" rel="styleSheet" href="jsq2016.css" />
+<script type="text/javascript" charset="utf-8" src="jsq2016-1.js"></script>
+</head>
+<body>
+	<div class="wrapper" data-id="sd" id="dayMode">
+		<nav id="lightNav" class="nav hide">
+		<ul style="padding:0;">
+		<li><a href="../index.php" class="">首页</a></li>
+		<li><a href="../index.php?moduleid=6" class="">新房</a></li>
+		<li><a href="../index.php?moduleid=5" class="">二手房</a></li>
+		<li><a href="../index.php?moduleid=7" class="">租房</a></li>
+		<li><a href="../index.php?moduleid=8" class="">资讯</a></li>
+		</ul>
+		</nav>
+		<script>
+		    var setBtn = document.getElementById("setBtn");
+		    var lightNav = document.getElementById("lightNav");
+		    var aSet = setBtn.getElementsByTagName("a")[0];
+
+		    setBtn.onclick = function () {
+		        aSet.className = aSet.className == "setDown" ? "setUp" : "setDown";
+		        lightNav.className = lightNav.className == "nav" ? "nav hide" : "nav";
+		    };
+		</script>
+    <div id="tab_nav" class="tab_nav">
+		<ul>
+			<li class="nav_t"><a href="index.html" bosszone="boss3355,caculator-businessLoan" class="tab_sd">商业贷</a></li><li class="nav_t"><a href="gjj.html" bosszone="boss3355,caculator-providentLoan" class="tab_gjj">公积金贷</a></li><li class="nav_t"><a href="zhd.html" class="tab_zh">组合贷</a></li><li class="over nav_t"></li>
+		</ul>
+	</div>
+	<section class="choose taxation">
+		<!--税费计算器-->
+		<div id="taxation">
+			<div class="tt-tab clearfix">
+				<span class="newhouse t_over">新房</span>
+				<span class="sechouse">二手房</span>
+			</div>
+			<ul>
+				<li class="lookfocus clerafix">
+					<span class="tt">
+						房屋面积：
+					</span>
+					<span class="detail txt">
+						<input type="tel" value="100" name="fwmj" id="fwmj" maxlength="8">平米
+					</span>
+				</li>
+				<li class="lookfocus clerafix">
+					<span class="tt">
+						房屋单价：
+					</span>
+					<span class="txt detail dj">
+						<input type="tel" value="10000" name="fwdj" id="fwdj" maxlength="8">元
+					</span>
+				</li>
+				<li>
+					<span class="tt">
+						房屋属性：
+					</span>
+					<span class="jump arr_rt">
+						<select class="fwsx">
+							<option value="1">普通住宅</option>
+							<option value="2">非普通住宅</option>
+							<option class="jsyf hide" value="3">经济适用房</option>
+						</select>
+					</span>
+				</li> 
+				<li class="checkbox new_house">
+					<div class="checkboxhouse pitchon">
+						<input type="checkbox" value="1" id="onlyhouse" name="">
+						<label for="onlyhouse"></label>
+						<span>唯一住房</span>
+					</div>
+				</li>
+				<ul class="sec_house hide">
+					<li>
+						<span class="tt">计征方式：</span>
+						<span class="house-nature">
+							<em class="top"><em class="chx_b bum"></em></em>
+							总价</span>
+						<span class="house-nature fwcj">
+							<em class="top"><em class="bum"></em></em>
+							差价</span>
+					</li>
+					<li class="lookfocus houseyj hide">
+						<span class="tt">
+							房屋原价：
+						</span>
+						<span class="detail txt">
+							<input type="tel" value="50" name="fkyj" id="" maxlength="8">万元
+						</span>
+					</li>
+					<li class="checkbox">
+						<div class="checkboxhouse fcmen pitchon">
+							<input type="checkbox" value="1" id="twoyear" name="">
+							<label for="twoyear"></label>
+							<span>房产证满二年</span>
+						</div>
+						<div class="checkboxhouse scgm pitchon">
+							<input type="checkbox" value="2" id="byfirst" name="">
+							<label for="byfirst"></label>
+							<span>买方首次购买</span>
+						</div>
+						<div class="checkboxhouse mfwy pitchon">
+							<input type="checkbox" value="3" id="only_h" name="">
+							<label for="only_h"></label>
+							<span>卖方唯一住房</span>
+						</div>
+					</li>
+				</ul></ul></div>
+			
+			<a id="calculateBtn" bosszone="zhcal">开始计算</a>
+		</section></div>
+	
+
+		<!--新房tab环形图-->
+		<div class="choose tjt hide" id="hxt">
+			<div>
+				<div class="c_container"><canvas id="doughnut"></canvas></div>
+				<ul class="chart-list">
+					<li class="orange">契税（必缴）：<span class="fwqs"><em>70</em>元</span></li>
+					<li class="blue">印花税（必缴）：<span class="fwyhs"><em>379575</em>元</span></li>
+					<li class="green">公证费（可选）：<span class="fwgzf">约<em>103.80</em>元</span></li>
+					<li class="violet">委托办理产权费（可选）：<span class="fwwt"><em>5.4</em>元</span></li>
+					<li class="grey">房屋买卖手续费（可选）：<span class="fwsxf"><em>4625</em>元</span></li>
+					<li>税金总额：<span class="sjze">约<em>4625</em>元</span></li>
+				</ul>
+				<div>
+					<p class="bottom-tips">以上结果仅供参考</p>
+					
+				</div>
+			</div>
+		</div>
+
+		<!--二手房tab环形图-->
+		<div class="choose tjt hide clearfix" id="eshxt">
+			<div class="c_container">
+				<canvas id="mfjn"></canvas>
+				<div class="mfns">卖方缴纳</div>
+			</div>
+			<div class="c_container">
+				<canvas id="mfjns"></canvas>
+				<div class="mfjn">买方缴纳</div>
+			</div>
+			<ul class="chart-list">
+				<li class="tit-mm"><h3>卖方缴纳</h3></li>
+				<li class="orange">印花税：<span class="fwyhs">目前免征</span></li>
+				<li class="blue">营业税：<span class="yys"><em class="zero"></em>元</span></li>
+				<li class="green">个人所得税：<span class="gesds"><em class="zero"></em>元</span></li>
+				<li class="violet">综合地价款：<span class="zhdjk"><em class="zero"></em>元</span></li>
+				<li class="tit-mm"><h3>买方缴纳</h3></li>
+				<li class="orange">契税（必缴）：<span class="mfwqs"><em>0</em>元</span></li>
+				<li class="blue">印花税：<span class="fwyhs">目前免征</span></li>
+				<li class="green">工本印花税：<span class="fwgb"><em>5</em>元</span></li>
+				<li>税金总额：<span class="essjze">约<em></em>元</span></li>
+			</ul>
+			<div>
+			<p class="bottom-tips">以上结果仅供参考</p> 
+			</div>
+		</div>
+		<p class="calCopy" style=" display:none;"><span>&#169; 房居客房产网版权所有</span></p>
+<script src="jsq2016-2.js" type="text/javascript"></script>
+</body></html>
