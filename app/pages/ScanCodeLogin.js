@@ -46,7 +46,7 @@ export default class ScanCodeLogin extends Component {
         return (
             <View style={{ flex: 1, backgroundColor: 'white', height: deviceHeight, width: deviceWidth }} >
                 <TouchableOpacity onPress={() => this.handleBack()} style={{ marginTop: 38, width: 100, height: 50 }}>
-                    <VectorIcon name={"arrow_back"} size={24} color={'black'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
+                    <VectorIcon name={"chevron-left"} size={24} color={'black'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
                 </TouchableOpacity>
                 <View style={{ marginTop: 30, display: "flex", flexDirection: "column", alignItems: "center" }} >
                     <Image source={require('../image/scanlogin1.png')} style={{ width: 300, height: 150 }} />

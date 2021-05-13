@@ -65,7 +65,7 @@ export default class PersonFiltrate extends Component {
             <View style={{ flex: 1 }}>
                 <ImageBackground source={require('../image/TopBg.png')} style={{ width: deviceWidth, height: 70 + SafeArea.top }}>
                     <TouchableOpacity onPress={() => Actions.pop()} style={{ marginTop: 48, position: 'absolute', width: 100, height: 50 }}>
-                        <VectorIcon name={"arrow_back"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
+                        <VectorIcon name={"chevron-left"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => Actions.RequireTicketPick()} style={{ marginTop: 48, position: 'absolute', right: 15, backgroundColor: 'transparent' }}>
                         <Text style={{ color: 'white' }}>申请开票</Text>

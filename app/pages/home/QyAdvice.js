@@ -43,7 +43,7 @@ export default class QyAdvice extends Component {
             <View style={{ backgroundColor: '#E1E1E1', height: deviceHeight }}>
                 <ImageBackground source={require('../home/TopBg.png')} style={{ width: deviceWidth, height: 70 + SafeArea.top }}>
                     <TouchableOpacity onPress={() => Actions.pop({ refresh: { test: UUID.v4() } })} style={{ marginTop: 38, position: 'absolute' }}>
-                        <VectorIcon name={"arrow_back"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
+                        <VectorIcon name={"chevron-left"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({detail:[] })} style={{ marginTop: 42, position: 'absolute',right:10 }}>
                         <Text style={{color:'white',backgroundColor:'transparent',fontSize:Config.MainFontSize-1}}>清空聊天记录</Text>

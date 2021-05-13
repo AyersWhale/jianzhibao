@@ -44,7 +44,7 @@ export default class kaoqin extends Component {
                 <ImageBackground source={require('../../image/TopBg.png')} style={{ width: deviceWidth, height: deviceHeight / 3 - 20 }}>
                     <View>
                         <TouchableOpacity onPress={() => Actions.pop()} style={{ marginTop: 25, position: 'absolute', width: 100, height: 50 }}>
-                            <VectorIcon name={"arrow_back"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
+                            <VectorIcon name={"chevron-left"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
                         </TouchableOpacity>
                         <View style={{ marginTop: 27, alignSelf: 'center', alignContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: 'white', backgroundColor: 'transparent', fontSize: Config.MainFontSize + 1, fontWeight: 'bold' }}>考勤打卡</Text>

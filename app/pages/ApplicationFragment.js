@@ -4,7 +4,7 @@
  */
 import React, { Component } from 'react';
 import {
-    Text, View, StyleSheet, ScrollView, Dimensions, Image, Alert, TouchableOpacity, ImageBackground, Platform, BackHandler, StatusBar,DeviceEventEmitter
+    Text, View, StyleSheet, ScrollView, Dimensions, Image, Alert, TouchableOpacity, ImageBackground, Platform, BackHandler, StatusBar, DeviceEventEmitter
 } from 'react-native';
 
 import { Fetch, Config, Actions, Cookies, SSOAuth, VectorIcon, UserInfo, SafeArea, UUID } from 'c2-mobile';
@@ -208,12 +208,6 @@ export default class ApplicationFragment extends Component {
                     </View>
                 </ImageBackground> */}
                 <View style={{ width: deviceWidth, height: 30 + SafeArea.top, backgroundColor: '#fff', alignSelf: 'center' }}>
-                    {/* <TouchableOpacity onPress={() => Actions.pop()} style={{ marginTop: 40, position: 'absolute', width: 100, height: 50 }}>
-                        <VectorIcon name={"arrow_back"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
-                    </TouchableOpacity>
-                    <View style={{ marginTop: 35, alignSelf: 'center', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'white', backgroundColor: 'transparent', fontSize: Config.MainFontSize + 7, fontWeight: 'bold' }}>我的收入</Text>
-                    </View> */}
                 </View>
 
                 <TouchableOpacity style={{ width: deviceWidth, flexDirection: 'row', backgroundColor: '#fff' }} onPress={() => Actions.UserInfoView({ identity: this.props.identity })}>

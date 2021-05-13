@@ -58,7 +58,7 @@ export default class AdviceDM extends Component {
                         <VectorIcon name={"arrow_back"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
                     </TouchableOpacity> */}
                     <TouchableOpacity onPress={() => Actions.pop({ refresh: { test: UUID.v4() } })} style={{ marginTop: Platform.OS == 'ios' ? SafeArea.top : 40, position: 'absolute', width: 100, height: 50 }}>
-                        <VectorIcon name={"arrow_back"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
+                        <VectorIcon name={"chevron-left"} size={20} color={'white'} style={{ backgroundColor: 'transparent', marginLeft: 15 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({ detail: [] })} style={{ marginTop: Platform.OS == 'ios' ? SafeArea.top : 42, position: 'absolute', right: 10 }}>
                         <Text style={{ color: 'white', backgroundColor: 'transparent', fontSize: Config.MainFontSize - 1 }}>清空聊天记录</Text>
