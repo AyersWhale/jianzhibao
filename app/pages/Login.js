@@ -12,6 +12,7 @@ import PasswordGesture from 'react-native-gesture-password'
 import { FingerprintLock } from "../Libraries/";
 import { QySwiper } from 'qysyb-mobile';
 import Toasts from 'react-native-root-toast';
+import { commonLogin } from '../utils/common/businessUtil'
 let password = ''; //密码
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -29,7 +30,7 @@ export default class Login extends Component {
             isFingerPrint: false,
             status: 'normal',
             isLock: false,
-            showChangeButton: false,
+            // showChangeButton: false,
             showFirstPic: false,//轮播引导页
             changeLogin_click: false,
             selected: true,
@@ -90,7 +91,6 @@ export default class Login extends Component {
                 th.setState({
                     key: ret5.key,
                     showWelcome: true,
-                    // showIdentity: true,
                 })
             } else {
                 var key = UUID.v4();
@@ -98,8 +98,7 @@ export default class Login extends Component {
                 th.setState({
                     key: key.key,
                     showWelcome: false,
-                    // showIdentity: true,
-                    showFirstPic: true
+                    showFirstPic: false
                 });
             }
         })
@@ -108,34 +107,33 @@ export default class Login extends Component {
             if (ret == null) {
                 return
             }
-            if (ret.passWord) {
-                Global.getValueForKey('ifRemberPassword').then((ret11) => {
-                    if (ret11) {
-                        if (ret11.rember == false) {
-                            th.setState({
-                                selected: false,
-                            })
-                            this.userName = ret.userName;
-                            this.passWord = '';
-                        } else {
-                            this.userName = ret.userName;
-                            this.passWord = ret.passWord;
-                            th.setState({
-                                selected: true,
-                            })
-                        }
-                    }
-                })
-                th.setState({
-                    loading: false
-                })
+            if (ret.passWord) {//如果有密码
+                // Global.getValueForKey('ifRemberPassword').then((ret11) => {
+                //     if (ret11) {
+                //         if (ret11.rember == false) {
+                //             th.setState({
+                //                 selected: false,
+                //             })
+                //             this.userName = ret.userName;
+                //             this.passWord = '';
+                //         } else {
+                //             this.userName = ret.userName;
+                //             this.passWord = ret.passWord;
+                //             th.setState({
+                //                 selected: true,
+                //             })
+                //         }
+                //     }
+                // })
+                // th.setState({
+                //     loading: false
+                // })
 
                 Global.getValueForKey('finger').then((ret1) => {
                     if (ret1 == 'openfinger') {
                         th.setState({
                             modalVisible: true,
                             isFingerPrint: true,
-                            showChangeButton: true,
                             isLock: true,
                             showFirstPic: false
                         })
@@ -157,7 +155,6 @@ export default class Login extends Component {
                                 Global.getValueForKey('gesture').then((ret2) => {
                                     password = ret2.gesture;
                                     th.setState({
-                                        showChangeButton: true,
                                         isLock: true,
                                         showFirstPic: false,
                                         isGesture: true,
@@ -166,7 +163,7 @@ export default class Login extends Component {
                                     })
                                 })
 
-                            } else {
+                            } else {//没有手势和指纹解锁密码的话直接登录
                                 if (this.props.type != 'reset') {
                                     this._onLogin();
                                 }
@@ -181,18 +178,25 @@ export default class Login extends Component {
                 th.setState({
                     selected: true
                 })
-                Global.saveWithKeyValue('ifRemberPassword', { rember: true })
+                // Global.saveWithKeyValue('ifRemberPassword', { rember: true })
                 this.timer = setTimeout(
                     () => {
-                        th.setState({
-                            showWelcome: false,
-                            showIdentity: false,
-                            showFirstPic: true
-                        })
+                        if (this.props.type == 'reset') {//如果是登出的话，直接跳转到登录页面
+                            th.setState({
+                                showWelcome: false,
+                                showIdentity: false,
+                                showFirstPic: false
+                            })
+                        } else {
+                            th.setState({
+                                showWelcome: false,
+                                showIdentity: false,
+                                showFirstPic: true
+                            })
+                        }
                     },
                     1000
                 );
-
             }
         });
         this.openQuanxian()
@@ -323,9 +327,7 @@ export default class Login extends Component {
                                 paddingLeft={10}
                                 maxLength={20}
                                 onChangeText={(text) => {
-                                    this.userName = text, this.setState({
-                                        showChangeButton: false
-                                    })
+                                    this.userName = text
                                 }}
                             />}
                             {/* </View> */}
@@ -394,6 +396,14 @@ export default class Login extends Component {
         if (this.state.showsure == false) {
             Toast.showInfo('请您阅读并同意相关协议之后再进行登录!', 3000);
         } else {
+            if (!this.userName) {
+                Alert.alert('', "请输入手机号!", [{ text: '确定' }]);
+                return;
+            }
+            if (!this.password) {
+                Alert.alert('', "请输入密码!", [{ text: '确定' }]);
+                return;
+            }
             Toast.show({
                 type: Toast.mode.C2MobileToastLoading,
                 title: '登录中...'
@@ -403,12 +413,12 @@ export default class Login extends Component {
             }
             Fetch.postJson(Config.mainUrl + '/ws/checkRegInfo', entity1)
                 .then((res) => {
+                    debugger
                     Toast.dismiss();
                     if (res.result.userName == undefined) {
                         Alert.alert('提示', "用户名或者密码错误,请重新输入", [{ text: '取消' },]);
                         return;
                     } else {
-
                         let loginParams = {
                             params: {
                                 userName: res.result.userName,
@@ -416,106 +426,44 @@ export default class Login extends Component {
                             }
                         }
                         //此处加入登录接口
-                        EncryptionUtils.fillEncodeData(loginParams);
-                        PcInterface.login(loginParams, (set) => {
-                            // var set = { "result": { "rcode": "1", "rdata": { "loginOrgInfo": { "creatingTime": 1520994422000, "creator": "1", "isDirectguanhu": 0, "isDirectlyparty": 0, "isForeignparty": 0, "isJichaparty": 0, "orgId": "42D6A4CED2DF4E4DAC487AF43F8FFCD6", "orgLevel": "2", "orgName": "欢瑞世纪影视传媒财务部", "orgNumber": "hrsjyscmcwb", "orgShowName": "财务部", "orgSn": 0, "orgXzqm": "000000", "parentId": "47CFDBC53D3E49489A1A06592F8E5ED3" }, "loginUserInfo": { "lastloginDate": 1541043738000, "loginIp": "172.16.81.163", "politics": "群众", "remark1": "file:///Users/wuqin/Library/Developer/CoreSimulator/Devices/D698BCB3-B0FE-4C24-96FC-C5B48D48CDA4/data/Containers/Data/Application/0E45ABBC-E881-4FC4-9264-611520A2E877/Library/Caches/image/BF6C32B2-3013-459D-A85B-DD34C541CE8C.jpg", "userAddress": "13212123", "userEmail": "122673456@qq.com", "userFax": "", "userHometel": "4645646", "userId": "8AFEC1BA776E411690310C4FC27690C5", "userIdcard": "430381196314126654", "userIsvalid": 2, "userLogincount": 3735, "userMobiletel1": "15717327380", "userName": "jeffery", "userOicq": "1212312313", "userPinyin": "", "userRealname": "管理员", "userRegdate": 1529545852000, "userSex": "-1", "userSn": 999, "userType": "0", "userWorktel": "15764988004" } }, "rmsg": "操作成功！" } }
-                            // cancelable.cancel();
-                            if (loginParams.params.userName == '') {
-                                Alert.alert('', "请输入账号!", [{ text: '取消' },]);
-                                return;
+                        commonLogin(loginParams, () => {
+                            var entity = {
+                                userName: this.userName,
+                                userPassword: this.password,
                             }
-                            if (loginParams.params.passWord == '') {
-                                Alert.alert('', "请输入密码!", [{ text: '取消' },]);
-                                return;
-                            }
-                            if (set.result.rcode == 0) {
-                                // Alert.alert("提示", set.result.rmsg
-                                Alert.alert("提示", '用户名或者密码错误,请重新输入'
-                                    , [
-                                        {
-                                            text: "确定", onPress: () => {
-                                                console.log("确定");
-                                            }
-                                        }
-                                    ])
-                                return;
-                            }
-                            else {
-                                //debugger
-                                if (set.result.rcode == 1) {
-                                    //debugger
-                                    let rawData = {
-                                        userInfo: loginParams,
-                                        loginSet: set
-                                    }
-                                    if (set.result.rdata.loginUserInfo.remark5 == '0') {
-                                        Alert.alert("提示", '您的登录权限已被禁用！'
-                                            , [
-                                                {
-                                                    text: "确定", onPress: () => {
-                                                        console.log("确定");
-                                                    }
+                            Fetch.postJson(Config.mainUrl + '/accountRegist/checkIdentity', entity)
+                                .then((res) => {
+                                    Fetch.getJson(Config.mainUrl + '/ws/checkRole')
+                                        .then((source) => {
+                                            console.log(source)
+                                            if (source[0].creator == true || source[0].supervise == true || source[0].serviceQykf == true || source[0].kefu == true || source[0].caiwu == true || source[0].service == true) {
+                                                Toast.showInfo('平台账号请前往pc端进行登录！', 3000);
+                                            } else {
+                                                if (res == '0') {
+                                                    Actions.TabBar({ type: 'replace', identity: 'boss' })
+                                                } else if (res == '-1') {
+                                                    Actions.TabBar({ type: 'replace', identity: 'platform' })
                                                 }
-                                            ])
-                                        return;
-                                    } else {
-                                        var entity2 = {
-                                            username: set.result.rdata.loginUserInfo.userName
-                                        }
-                                        Fetch.postJson(Config.mainUrl + '/v1/mobile/userlogin', entity2)
-                                            .then((res) => {
-                                                //debugger
-                                                Global.saveWithKeyValue('tokenValue', { token: res.token });
-                                            })
-
-                                        Global.getValueForKey('firstLogin').then(() => {
-                                            Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
+                                                else {
+                                                    Actions.TabBar({ type: 'replace', identity: 'student' })
+                                                }
+                                            }
                                         })
-                                        PushUtils.registerC2Push();
-                                        UserInfo.initUserInfoWithDict(rawData);
-                                        Global.saveWithKeyValue('loginInformation', loginParams.params);
-                                        var entity = {
-                                            userName: this.userName,
-                                            userPassword: this.password,
-                                        }
-                                        Fetch.postJson(Config.mainUrl + '/accountRegist/checkIdentity', entity)
-                                            .then((res) => {
-                                                Fetch.getJson(Config.mainUrl + '/ws/checkRole')
-                                                    .then((source) => {
-                                                        console.log(source)
-                                                        if (source[0].creator == true || source[0].supervise == true || source[0].serviceQykf == true || source[0].kefu == true || source[0].caiwu == true || source[0].service == true) {
-                                                            Toast.showInfo('平台账号请前往pc端进行登录！', 3000);
-                                                        } else {
-                                                            if (res == '0') {
-                                                                Actions.TabBar({ type: 'replace', identity: 'boss' })
-                                                            } else if (res == '-1') {
-                                                                Actions.TabBar({ type: 'replace', identity: 'platform' })
-                                                            }
-                                                            else {
-                                                                Actions.TabBar({ type: 'replace', identity: 'student' })
-                                                            }
-                                                        }
-                                                    })
-                                            })
-                                        return;
-                                    }
-
-                                } else {
-                                    Alert.alert("提示", '用户名或者密码错误,请重新输入'
-                                        // set.result.rmsg
-                                        , [
-                                            {
-                                                text: "确定", onPress: () => {
-                                                    console.log("确定");
-                                                }
-                                            }
-                                        ])
-                                    return;
-                                }
-                            }
+                                        .catch((err) => {
+                                            console.log('checkRole', err)
+                                        })
+                                })
+                                .catch((err) => {
+                                    console.log('checkIdentity报错', err)
+                                })
+                            return;
                         })
-
                     }
+                })
+                .catch((err) => {
+                    Toast.dismiss();
+                    console.log('/ws/checkRegInfo报错', err)
+                    Alert.alert('', "请检查网络状态，稍后重试!", [{ text: '确定' }]);
                 })
         }
 
@@ -667,145 +615,145 @@ export default class Login extends Component {
             //     )
             // }
 
-            if (this.state.showChangeButton) {
-                return (<ScrollView>
-                    <TouchableOpacity activeOpacity={1} style={styles.view} onPress={() => Keyboard.dismiss()}>
-                        {datePickerModal}
-                        <View style={{ width: theme.screenWidth, height: theme.screenHeight, backgroundColor: 'white' }}>
-                            <ScrollView>
-                                <Image source={require('../image/logo.png')} style={{ width: 40, height: 40, position: 'absolute', marginTop: theme.screenHeight / 6 - 10, marginLeft: 20 }} />
-                                <Text style={{ position: 'absolute', marginTop: theme.screenHeight / 6, fontSize: Config.MainFontSize + 4, marginLeft: 80 }}>欢迎来到工薪易</Text>
-                                <View style={{ alignItems: 'center', marginTop: deviceHeight / 6 + 30 }}>
-                                </View>
-                                <View>{this.loading()}</View>
-                                <View style={{ flexDirection: 'row', marginTop: 30 }}>
-                                    <TouchableOpacity style={{ alignItems: 'flex-start', backgroundColor: 'transparent', flexDirection: 'row', marginLeft: 40 }} onPress={() => Actions.authcodeLogin()}>
-                                        <Text style={{ color: 'rgb(65,143,234)' }}>验证码登录</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={{ backgroundColor: 'transparent', marginLeft: theme.screenWidth / 2.2 }} onPress={this.forgetPassword.bind(this)}><Text style={{ color: '#c4c4c4' }}>忘记密码</Text></TouchableOpacity>
-                                </View>
-                                <TouchableOpacity style={styles.out_button} onPress={() => {
-                                    this._onLogin()
-                                }}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        backgroundColor: '#3E7EFE',
-                                        width: Dimensions.get('window').width / 1.3,
-                                        height: 44,
-                                        marginTop: 20,
-                                        borderRadius: 20,
-                                        justifyContent: 'center'
-                                    }}>
-                                        <Text style={{
-                                            fontSize: Config.MainFontSize,
-                                            color: '#ffffff'
-                                        }}>登录</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.out_button} onPress={() => {
-                                    this.changeLogin_click()
-                                }}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        alignSelf: 'center',
-                                        backgroundColor: 'rgb(65,143,234)',
-                                        width: Dimensions.get('window').width / 1.3,
-                                        height: 44,
-                                        marginTop: 30,
-                                        borderRadius: 20,
-                                        justifyContent: 'center'
-                                    }}>
-                                        <Text style={{
-                                            fontSize: Config.MainFontSize,
-                                            color: '#ffffff'
-                                        }}>切换登录方式</Text>
-                                    </View>
-                                </TouchableOpacity>
+            // if (this.state.showChangeButton) {
+            //     return (<ScrollView>
+            //         <TouchableOpacity activeOpacity={1} style={styles.view} onPress={() => Keyboard.dismiss()}>
+            //             {datePickerModal}
+            //             <View style={{ width: theme.screenWidth, height: theme.screenHeight, backgroundColor: 'white' }}>
+            //                 <ScrollView>
+            //                     <Image source={require('../image/logo.png')} style={{ width: 40, height: 40, position: 'absolute', marginTop: theme.screenHeight / 6 - 10, marginLeft: 20 }} />
+            //                     <Text style={{ position: 'absolute', marginTop: theme.screenHeight / 6, fontSize: Config.MainFontSize + 4, marginLeft: 80 }}>欢迎来到工薪易</Text>
+            //                     <View style={{ alignItems: 'center', marginTop: deviceHeight / 6 + 30 }}>
+            //                     </View>
+            //                     <View>{this.loading()}</View>
+            //                     <View style={{ flexDirection: 'row', marginTop: 30 }}>
+            //                         <TouchableOpacity style={{ alignItems: 'flex-start', backgroundColor: 'transparent', flexDirection: 'row', marginLeft: 40 }} onPress={() => Actions.authcodeLogin()}>
+            //                             <Text style={{ color: 'rgb(65,143,234)' }}>验证码登录</Text>
+            //                         </TouchableOpacity>
+            //                         <TouchableOpacity style={{ backgroundColor: 'transparent', marginLeft: theme.screenWidth / 2.2 }} onPress={this.forgetPassword.bind(this)}><Text style={{ color: '#c4c4c4' }}>忘记密码</Text></TouchableOpacity>
+            //                     </View>
+            //                     <TouchableOpacity style={styles.out_button} onPress={() => {
+            //                         this._onLogin()
+            //                     }}>
+            //                         <View style={{
+            //                             alignItems: 'center',
+            //                             alignSelf: 'center',
+            //                             backgroundColor: '#3E7EFE',
+            //                             width: Dimensions.get('window').width / 1.3,
+            //                             height: 44,
+            //                             marginTop: 20,
+            //                             borderRadius: 20,
+            //                             justifyContent: 'center'
+            //                         }}>
+            //                             <Text style={{
+            //                                 fontSize: Config.MainFontSize,
+            //                                 color: '#ffffff'
+            //                             }}>登录</Text>
+            //                         </View>
+            //                     </TouchableOpacity>
+            //                     <TouchableOpacity style={styles.out_button} onPress={() => {
+            //                         this.changeLogin_click()
+            //                     }}>
+            //                         <View style={{
+            //                             alignItems: 'center',
+            //                             alignSelf: 'center',
+            //                             backgroundColor: 'rgb(65,143,234)',
+            //                             width: Dimensions.get('window').width / 1.3,
+            //                             height: 44,
+            //                             marginTop: 30,
+            //                             borderRadius: 20,
+            //                             justifyContent: 'center'
+            //                         }}>
+            //                             <Text style={{
+            //                                 fontSize: Config.MainFontSize,
+            //                                 color: '#ffffff'
+            //                             }}>切换登录方式</Text>
+            //                         </View>
+            //                     </TouchableOpacity>
 
-                                <View style={stylesheet.phone}>
-                                    <Text style={stylesheet.phoneText}>湖南科创信息股份有限公司</Text>
-                                </View>
+            //                     <View style={stylesheet.phone}>
+            //                         <Text style={stylesheet.phoneText}>湖南科创信息股份有限公司</Text>
+            //                     </View>
 
-                            </ScrollView>
+            //                 </ScrollView>
+            //             </View>
+            //         </TouchableOpacity></ScrollView>
+            //     );
+            // } else {
+            return (
+                <TouchableOpacity activeOpacity={1} style={styles.view} onPress={() => Keyboard.dismiss()} onPress={() => this.setState({ showTheme: false })}>
+                    {datePickerModal}
+                    <ScrollView>
+                        <View style={{ width: deviceWidth, backgroundColor: '#3E7EFE', height: 210 }}>
+                            <Text style={{ position: 'absolute', marginTop: 80, fontSize: Config.MainFontSize + 8, marginLeft: 20, color: '#fff', fontFamily: 'PingFang SC', fontWeight: 'bold' }}>{this.state.identityDl == 0 ? '您好，企业登录！' : '您好，个人登录！'}</Text>
+                            <Text style={{ position: 'absolute', marginTop: 118, fontSize: Config.MainFontSize + 8, marginLeft: 20, color: '#fff', fontFamily: 'PingFang SC', fontWeight: 'bold' }}>欢迎来到工薪易</Text>
+                            <Image source={require('../image/dllogo.png')} style={{ width: 211, height: 211, position: 'absolute', right: -40 }} />
                         </View>
-                    </TouchableOpacity></ScrollView>
-                );
-            } else {
-                return (
-                    <TouchableOpacity activeOpacity={1} style={styles.view} onPress={() => Keyboard.dismiss()} onPress={() => this.setState({ showTheme: false })}>
-                        {datePickerModal}
-                        <ScrollView>
-                            <View style={{ width: deviceWidth, backgroundColor: '#3E7EFE', height: 210 }}>
-                                <Text style={{ position: 'absolute', marginTop: 80, fontSize: Config.MainFontSize + 8, marginLeft: 20, color: '#fff', fontFamily: 'PingFang SC', fontWeight: 'bold' }}>{this.state.identityDl == 0 ? '您好，企业登录！' : '您好，个人登录！'}</Text>
-                                <Text style={{ position: 'absolute', marginTop: 118, fontSize: Config.MainFontSize + 8, marginLeft: 20, color: '#fff', fontFamily: 'PingFang SC', fontWeight: 'bold' }}>欢迎来到工薪易</Text>
-                                <Image source={require('../image/dllogo.png')} style={{ width: 211, height: 211, position: 'absolute', right: -40 }} />
-                            </View>
-                            <View style={{ backgroundColor: '#fff', borderTopLeftRadius: 25, borderTopRightRadius: 25, marginTop: -20 }}>{this.loading()}</View>
-                            <View style={{ display: 'flex', flexDirection: 'row', width: theme.screenWidth - 70, marginLeft: 35, marginTop: -10, justifyContent: 'space-between' }}>
-                                <TouchableOpacity onPress={() => Actions.authcodeLogin()}>
-                                    <Text style={{ fontSize: Config.MainFontSize - 2, color: '#999', fontWeight: '500' }}>短信验证码登录</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => Actions.ForgetPassword()}>
-                                    <Text style={{ fontSize: Config.MainFontSize - 2, color: '#999', fontWeight: '500' }}>忘记密码？</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity style={styles.out_button} onPress={() => {
-                                this._onLogin()
+                        <View style={{ backgroundColor: '#fff', borderTopLeftRadius: 25, borderTopRightRadius: 25, marginTop: -20 }}>{this.loading()}</View>
+                        <View style={{ display: 'flex', flexDirection: 'row', width: theme.screenWidth - 70, marginLeft: 35, marginTop: -10, justifyContent: 'space-between' }}>
+                            <TouchableOpacity onPress={() => Actions.authcodeLogin()}>
+                                <Text style={{ fontSize: Config.MainFontSize - 2, color: '#999', fontWeight: '500' }}>短信验证码登录</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => Actions.ForgetPassword()}>
+                                <Text style={{ fontSize: Config.MainFontSize - 2, color: '#999', fontWeight: '500' }}>忘记密码？</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity style={styles.out_button} onPress={() => {
+                            this._onLogin()
+                        }}>
+                            <View style={{
+                                alignItems: 'center',
+                                alignSelf: 'center',
+                                backgroundColor: '#3E7EFE',
+                                width: Dimensions.get('window').width / 1.3,
+                                height: 52,
+                                marginTop: 25,
+                                borderRadius: 30,
+                                justifyContent: 'center'
                             }}>
-                                <View style={{
-                                    alignItems: 'center',
-                                    alignSelf: 'center',
-                                    backgroundColor: '#3E7EFE',
-                                    width: Dimensions.get('window').width / 1.3,
-                                    height: 52,
-                                    marginTop: 25,
-                                    borderRadius: 30,
-                                    justifyContent: 'center'
-                                }}>
-                                    <Text style={{
-                                        fontSize: Config.MainFontSize + 2,
-                                        color: '#ffffff',
-                                        fontWeight: '600'
-                                    }}>登录</Text>
-                                </View>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={styles.out_button} onPress={this.register.bind(this)}>
-                                <View style={{
-                                    alignItems: 'center',
-                                    alignSelf: 'center',
-                                    backgroundColor: '#f5f6fa',
-                                    width: Dimensions.get('window').width / 1.3,
-                                    height: 52,
-                                    marginTop: 20,
-                                    borderRadius: 30,
-                                    justifyContent: 'center'
-                                }}>
-                                    <Text style={{
-                                        fontSize: Config.MainFontSize + 2,
-                                        color: '#333',
-                                        fontWeight: '600'
-                                    }}>注册</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <View style={{ alignItems: 'center', marginTop: theme.screenHeight / 5 }}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <TouchableOpacity onPress={() => this.setState({ showsure: !this.state.showsure })}>
-                                        {this.state.showsure ? <Image source={require('../image/icon/icon_xuanze.png')} style={{ width: 16, height: 16 }} />
-                                            : <View style={{ width: 16, height: 16, borderRadius: 8, borderWidth: 1, borderColor: '#333' }}></View>}
-                                    </TouchableOpacity>
-                                    <Text style={{ marginLeft: 7, color: '#999999', fontSize: Config.MainFontSize - 3, fontWeight: '500', fontFamily: 'PingFang SC' }}>已阅读并同意工薪易
-                            <Text onPress={() => { Actions.C2WebView({ url: Config.mainUrl + '/view/agreement5.html', title: '“工薪易”平台须知' }) }} style={{ color: '#3E7EFE' }}>《“工薪易”平台须知》</Text>&<Text onPress={() => { Actions.C2WebView({ url: Config.mainUrl + '/view/agreement4.html', title: '“工薪易”平台隐私政策' }) }} style={{ color: '#3E7EFE' }}>《“工薪易”平台隐私政策》</Text></Text>
-                                </View>
+                                <Text style={{
+                                    fontSize: Config.MainFontSize + 2,
+                                    color: '#ffffff',
+                                    fontWeight: '600'
+                                }}>登录</Text>
                             </View>
-                            {/* <View style={stylesheet.phone}>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.out_button} onPress={this.register.bind(this)}>
+                            <View style={{
+                                alignItems: 'center',
+                                alignSelf: 'center',
+                                backgroundColor: '#f5f6fa',
+                                width: Dimensions.get('window').width / 1.3,
+                                height: 52,
+                                marginTop: 20,
+                                borderRadius: 30,
+                                justifyContent: 'center'
+                            }}>
+                                <Text style={{
+                                    fontSize: Config.MainFontSize + 2,
+                                    color: '#333',
+                                    fontWeight: '600'
+                                }}>注册</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={{ alignItems: 'center', marginTop: theme.screenHeight / 5 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => this.setState({ showsure: !this.state.showsure })}>
+                                    {this.state.showsure ? <Image source={require('../image/icon/icon_xuanze.png')} style={{ width: 16, height: 16 }} />
+                                        : <View style={{ width: 16, height: 16, borderRadius: 8, borderWidth: 1, borderColor: '#333' }}></View>}
+                                </TouchableOpacity>
+                                <Text style={{ marginLeft: 7, color: '#999999', fontSize: Config.MainFontSize - 3, fontWeight: '500', fontFamily: 'PingFang SC' }}>已阅读并同意工薪易
+                            <Text onPress={() => { Actions.C2WebView({ url: Config.mainUrl + '/view/agreement5.html', title: '“工薪易”平台须知' }) }} style={{ color: '#3E7EFE' }}>《“工薪易”平台须知》</Text>&<Text onPress={() => { Actions.C2WebView({ url: Config.mainUrl + '/view/agreement4.html', title: '“工薪易”平台隐私政策' }) }} style={{ color: '#3E7EFE' }}>《“工薪易”平台隐私政策》</Text></Text>
+                            </View>
+                        </View>
+                        {/* <View style={stylesheet.phone}>
                                 <Text style={stylesheet.phoneText}>湖南科创信息股份有限公司</Text>
                             </View> */}
-                        </ScrollView>
-                    </TouchableOpacity>
-                );
-            }
+                    </ScrollView>
+                </TouchableOpacity>
+            );
+            // }
         }
     }
 

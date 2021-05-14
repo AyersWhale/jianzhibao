@@ -75,44 +75,6 @@ export default class UploadAchievement extends Component {
             </View>
         );
     }
-    directLogin() {
-        Global.getValueForKey('loginInformation').then((ret) => {
-            if (ret) {
-                let loginParams = {
-                    params: {
-                        userName: ret.userName,
-                        passWord: ret.passWord,
-                    }
-                }
-                //此处加入登录接口
-                EncryptionUtils.fillEncodeData(loginParams);
-                PcInterface.login(loginParams, (set) => {
-                    if (set.result.rcode == 1) {
-                        let rawData = {
-                            userInfo: loginParams,
-                            loginSet: set
-                        }
-                        Global.getValueForKey('firstLogin').then(() => {
-                            Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                        })
-                        UserInfo.initUserInfoWithDict(rawData);
-                        Actions.TabBar({ type: 'replace', identity: 'student' })
-                        return;
-                    } else if (set.result.rcode == 0) {
-                        Alert.alert("提示", set.result.rmsg
-                            , [
-                                {
-                                    text: "确定", onPress: () => {
-                                        console.log("确定");
-                                    }
-                                }
-                            ])
-                        return;
-                    }
-                });
-            }
-        })
-    }
 
     uploadInfo_front(response) {
         let formData = new FormData();

@@ -13,6 +13,7 @@ const deviceHeight = Dimensions.get('window').height;
 import PushUtils from '../utils/PushUtils';
 import Global from '../utils/GlobalStorage';
 import ServerProvider from '../utils/ServerProvider'
+import {commonLogin} from '../utils/common/businessUtil'
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -1705,32 +1706,10 @@ export default class Register extends Component {
                 }
             }
             //此处加入登录接口
-            EncryptionUtils.fillEncodeData(loginParams);
-            PcInterface.login(loginParams, (set) => {
-            if (set.result.rcode == 1) {
-                let rawData = {
-                    userInfo: loginParams,
-                    loginSet: set
-                }
-                Global.getValueForKey('firstLogin').then(() => {
-                        Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                    })
-                    Global.saveWithKeyValue('loginInformation', loginParams.params);
-                    UserInfo.initUserInfoWithDict(rawData);
-                    Actions.IdCard({type: 'replace', passWord: passWord, telphone: this.telphone, login: '1', userInfo: {login: '1', uuid: this.state.uuid }, userId: res.userId })
-                    return;
-            } else if (set.result.rcode == 0) {
-                        Alert.alert("提示", set.result.rmsg
-                            , [
-                                {
-                                    text: "确定", onPress: () => {
-                                        console.log("确定");
-                                    }
-                                }
-                            ])
-                return ;
-                }
-            });
+            commonLogin(loginParams,()=>{
+                Actions.IdCard({type: 'replace', passWord: passWord, telphone: this.telphone, login: '1', userInfo: {login: '1', uuid: this.state.uuid }, userId: res.userId })
+                return;
+            })
         }
     directLogin(userName, passWord) {
         let loginParams = {
@@ -1740,41 +1719,10 @@ export default class Register extends Component {
                 }
             }
             //此处加入登录接口
-            EncryptionUtils.fillEncodeData(loginParams);
-            PcInterface.login(loginParams, (set) => {
-            if (set.result.rcode == 1) {
-                let rawData = {
-                    userInfo: loginParams,
-                    loginSet: set
-                }
-                var entity2 = {
-                    username: set.result.rdata.loginUserInfo.userName
-                }
-                Fetch.postJson(Config.mainUrl + '/v1/mobile/userlogin', entity2)
-                    .then((res) => {//获取token
-                        //debugger
-                        Global.saveWithKeyValue('tokenValue', { token: res.token });
-                    })
-                Global.getValueForKey('firstLogin').then(() => {
-                        Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                    })
-                    PushUtils.registerC2Push();
-                    Global.saveWithKeyValue('loginInformation', loginParams.params);
-                    UserInfo.initUserInfoWithDict(rawData);
-                    Actions.TabBar({type: 'replace', identity: 'student' })
+            commonLogin(loginParams,()=>{
+                Actions.TabBar({type: 'replace', identity: 'student' })
                     return;
-            } else if (set.result.rcode == 0) {
-                Alert.alert("提示", set.result.rmsg
-                    , [
-                        {
-                            text: "确定", onPress: () => {
-                                console.log("确定");
-                            }
-                        }
-                    ])
-                return ;
-                }
-            });
+            })
         }
     directLoginBoss(userName, passWord) {
         let loginParams = {
@@ -1784,33 +1732,10 @@ export default class Register extends Component {
                 }
             }
             //此处加入登录接口
-            EncryptionUtils.fillEncodeData(loginParams);
-            PcInterface.login(loginParams, (set) => {
-            if (set.result.rcode == 1) {
-                        let rawData = {
-                        userInfo: loginParams,
-                    loginSet: set
-                }
-                Global.getValueForKey('firstLogin').then(() => {
-                        Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                    })
-                    PushUtils.registerC2Push();
-                    Global.saveWithKeyValue('loginInformation', loginParams.params);
-                    UserInfo.initUserInfoWithDict(rawData);
-                    Actions.TabBar({type: 'replace', identity: 'boss' })
-                  return;
-            } else if (set.result.rcode == 0) {
-                        Alert.alert("提示", set.result.rmsg
-                            , [
-                                {
-                                    text: "确定", onPress: () => {
-                                        console.log("确定");
-                                    }
-                                }
-                            ])
-                return ;
-                }
-            });
+            commonLogin(loginParams,()=>{
+                Actions.TabBar({type: 'replace', identity: 'boss' })
+                return;
+            })
         }
     componentWillUnmount() {
         this._timer && clearInterval(this._timer);

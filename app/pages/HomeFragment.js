@@ -22,6 +22,7 @@ import { C2AmapApi } from 'c2-mobile-amap';
 import Global from '../utils/GlobalStorage';
 import HandlerOnceTap from '../utils/HandlerOnceTap'
 import { Button } from 'react-native-elements';
+import {commonLoginOut} from '../utils/common/businessUtil'
 
 let _pageNo = 1;
 let jobPageSize = 10;
@@ -36,7 +37,7 @@ export default class HomeFragment extends Component {
     }
     constructor(props) {
         super(props);
-        console.log(UserInfo.loginSet.result.rdata.loginUserInfo)
+        // console.log(UserInfo.loginSet.result.rdata.loginUserInfo)
         this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
             latlong: { lat: 0, lng: 0 },//当前经纬度
@@ -190,7 +191,7 @@ export default class HomeFragment extends Component {
         })
         this.subscription = DeviceEventEmitter.addListener("unreadMessage", (param) => {
             // 刷新界面等
-            console.log(param)
+            // console.log(param)
             this.setState({
                 unreadMessage: param
             })
@@ -241,7 +242,7 @@ export default class HomeFragment extends Component {
         //获取更新预告消息
         Fetch.getJson(Config.mainUrl + '/updateTips/getIsOpenUpdateTips')
             .then((res) => {
-                console.log('公告', res)
+                // console.log('公告', res)
                 if (res.id) {
                     this.setState({
                         updateTips: res,
@@ -290,6 +291,7 @@ export default class HomeFragment extends Component {
             this.timer = setInterval(() => {
                 let storageToken = ''
                 Global.getValueForKey('tokenValue').then((ret) => {
+                    console.log('本地存的tokenValue', ret)
                     storageToken = ret.token
                     let params = {
                         username: UserInfo.loginSet.result.rdata.loginUserInfo.userName,
@@ -297,27 +299,10 @@ export default class HomeFragment extends Component {
                     }
                     Fetch.postJson(Config.mainUrl + '/v1/mobile/checkloginis', params)
                         .then((res) => {
+                            console.log('有别人登录的时候返回false', res)
                             if (res.status == false) {
-                                Global.saveWithKeyValue('gesture', {
-                                    gesture: '',
-                                });
-                                Global.saveWithKeyValue('gestureOpen', {
-                                    gestureOpen: false,
-                                });
-                                Global.saveWithKeyValue('loginInformation', { userName: this.state.userName, passWord: '' });
-                                let loginParams = {
-                                    params: {
-                                        // log_status: '1',
-                                        userName: this.state.userName,
-                                        userId: UserInfo.loginSet.result.rdata.loginUserInfo.userId
-                                    }
-                                }
-                                Fetch.postJson(Config.mainUrl + '/ws/logout', loginParams)
-                                    .then((res) => {
-                                        console.log(res)
-                                    })
+                                commonLoginOut()
                                 Actions.Login({ type: 'reset' });
-                                //Toasts.show('该设备登录信息已过期', { position: -60 });
                                 Alert.alert('温馨提示', '该账号登录信息已过期或已在其他设备登录', [{
                                     text: '好的', onPress: () => { }
                                 }, {}
@@ -357,9 +342,9 @@ export default class HomeFragment extends Component {
                 var lng = keepSixDecimal(bd_Coordinate.bd_lng)
                 Fetch.postJson(Config.mainUrl + '/ws/getAddress?x=' + lat + '&y=' + lng)
                     .then((res) => {
-                        console.log('后台返回的位置信息', res)
+                        // console.log('后台返回的位置信息', res)
                         var citytemp = JSON.parse(res.result.str)
-                        console.log(citytemp)
+                        // console.log(citytemp)
                         var city = citytemp.result.addressComponent.city
                         if (result.coordinate.latitude == '0.000000') {
                             this.loadJobData(this.state.resultCon)
@@ -421,7 +406,7 @@ export default class HomeFragment extends Component {
                                     }
                                 }
                                 if (this.state.gwTab == 'tj') {
-                                    console.log(con)
+                                    // console.log(con)
                                     this.loadJobData(con)
                                 } else if (this.state.gwTab == 'fj') {
                                     let cond = {
@@ -429,7 +414,7 @@ export default class HomeFragment extends Component {
                                         ...this.state.latlong,
                                         provinceName: this.state.gps_city
                                     }
-                                    console.log(cond)
+                                    // console.log(cond)
                                     this.loadNearbyJob(1, cond, true)
                                 }
                             }
@@ -437,7 +422,7 @@ export default class HomeFragment extends Component {
                     })
             })
             .catch((res) => {
-                console.log(res)
+                // console.log(res)
                 this.loadJobData(this.state.resultCon)
                 if (Platform.OS == 'android') {
                     var permissionACCESS_FINE_LOCATION = PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION;
@@ -571,7 +556,7 @@ export default class HomeFragment extends Component {
         let url = Config.mainUrl + '/positionManagement/getPositionByPersonnelIntent?rows=10&page=1&sidx=&sord=&cond=' + encodeURI(JSON.stringify(cond))
         Fetch.getJson(url)
             .then((res) => {
-                console.log(res.contents.length)
+                // console.log(res.contents.length)
                 Toast.dismiss();
                 touchEnd = true;
                 var entry1 = res.contents;
@@ -620,8 +605,8 @@ export default class HomeFragment extends Component {
         Fetch.getJson(Config.mainUrl + '/positionManagement/getLocationNearForPerson?rows=10&page=' + pageNo + '&sidx=&sord=&cond=' + encodeURI(JSON.stringify(cond)))
             .then((res) => {
                 Toast.dismiss();
-                console.log(res.contents)
-                console.log(res.total)
+                // console.log(res.contents)
+                // console.log(res.total)
                 var entry1 = res.contents;
                 for (let i in entry1) {
                     let itemInfo = entry1[i]
@@ -1077,7 +1062,7 @@ export default class HomeFragment extends Component {
             selectedContionResume: selectedContion,
             resumeCon: resumeCondition
         })
-        console.log(resumeCondition)
+        // console.log(resumeCondition)
         this.getResumeList(1, resumeCondition, true)
     }
     handleCondition(jobCondition, selectedContion, ifhadChoose) {
@@ -1092,7 +1077,7 @@ export default class HomeFragment extends Component {
             resultCon: con
         })
         if (this.state.gwTab == 'tj') {
-            console.log(con)
+            // console.log(con)
             this.loadJobData(con)
         } else {
             let condition = {
@@ -1100,7 +1085,7 @@ export default class HomeFragment extends Component {
                 ...this.state.latlong,
                 provinceName: this.state.gps_city
             }
-            console.log(condition)
+            // console.log(condition)
             this.loadNearbyJob(1, condition, true)
         }
     }
@@ -1257,7 +1242,7 @@ export default class HomeFragment extends Component {
                 ...this.state.latlong,
                 provinceName: this.state.gps_city,
             }
-            console.log(con)
+            // console.log(con)
             this.loadNearbyJob(page, con)
         }
     }
@@ -2049,14 +2034,14 @@ export default class HomeFragment extends Component {
             ...this.state.latlong,
             provinceName: this.state.gps_city,
         }
-        console.log(con)
+        // console.log(con)
         this.loadNearbyJob(1, con, true)
     }
     handleTouchtj() {
         this.setState({
             gwTab: "tj"
         })
-        console.log(this.state.resultCon)
+        // console.log(this.state.resultCon)
         this.loadJobData(this.state.resultCon)
     }
     getPostValue(value) {
@@ -2092,7 +2077,7 @@ export default class HomeFragment extends Component {
                 provinceName: null,
             }
         }
-        console.log(con)
+        // console.log(con)
         this.loadJobData(con)
         this.setState({
             selectedCity: value,

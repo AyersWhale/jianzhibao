@@ -12,6 +12,7 @@ import PcInterface from '../utils/http/PcInterface';
 import Global from '../utils/GlobalStorage';
 import EncryptionUtils from '../utils/EncryptionUtils';
 import RNFetchBlob from "rn-fetch-blob";
+import { commonLogin } from '../utils/common/businessUtil'
 
 function hypotenuse(a, b) {
     //三角形斜边
@@ -180,38 +181,10 @@ export default class MyCollection extends Component {
                     }
                 }
                 //此处加入登录接口
-                EncryptionUtils.fillEncodeData(loginParams);
-                PcInterface.login(loginParams, (set) => {
-                    if (set.result.rcode == 1) {
-                        let rawData = {
-                            userInfo: loginParams,
-                            loginSet: set
-                        }
-                        var entity2 = {
-                            username: set.result.rdata.loginUserInfo.userName
-                        }
-                        Fetch.postJson(Config.mainUrl + '/v1/mobile/userlogin', entity2)
-                            .then((res) => {//获取token
-                                Global.saveWithKeyValue('tokenValue', { token: res.token });
-                            })
-                        Global.getValueForKey('firstLogin').then(() => {
-                            Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                        })
-                        UserInfo.initUserInfoWithDict(rawData);
-                        Actions.TabBar({ type: 'replace', identity: 'student' })
-                        return;
-                    } else if (set.result.rcode == 0) {
-                        Alert.alert("提示", set.result.rmsg
-                            , [
-                                {
-                                    text: "确定", onPress: () => {
-                                        console.log("确定");
-                                    }
-                                }
-                            ])
-                        return;
-                    }
-                });
+                commonLogin(loginParams, () => {
+                    Actions.TabBar({ type: 'replace', identity: 'student' })
+                    return;
+                })
             }
         })
     }

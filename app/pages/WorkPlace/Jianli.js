@@ -9,7 +9,7 @@ import { Checkbox, List, Picker, Switch } from 'antd-mobile-rn';
 import DatePicker from 'react-native-datepicker';
 import Global from '../../utils/GlobalStorage';
 import TimeChange from '../../utils/TimeChange';
-import { workTypeByCode, workTypeByValue } from '../../utils/common/businessUtil'
+import { workTypeByCode, workTypeByValue, commonLogin } from '../../utils/common/businessUtil'
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeigth = Dimensions.get('window').height;
 const CheckboxItem = Checkbox.CheckboxItem;
@@ -647,31 +647,10 @@ export default class Jianli extends Component {
                                     }
                                 }
                                 //此处加入登录接口
-                                EncryptionUtils.fillEncodeData(loginParams);
-                                PcInterface.login(loginParams, (set) => {
-                                    if (set.result.rcode == 1) {
-                                        let rawData = {
-                                            userInfo: loginParams,
-                                            loginSet: set
-                                        }
-                                        Global.getValueForKey('firstLogin').then(() => {
-                                            Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                                        })
-                                        UserInfo.initUserInfoWithDict(rawData);
-                                        Actions.TabBar({ type: 'replace', identity: 'student' })
-                                        return;
-                                    } else if (set.result.rcode == 0) {
-                                        Alert.alert("提示", set.result.rmsg
-                                            , [
-                                                {
-                                                    text: "确定", onPress: () => {
-                                                        console.log("确定");
-                                                    }
-                                                }
-                                            ])
-                                        return;
-                                    }
-                                });
+                                commonLogin(loginParams, () => {
+                                    Actions.TabBar({ type: 'replace', identity: 'student' })
+                                    return;
+                                })
                             } else {
                                 if (this.props.update) {
                                     Alert.alert(

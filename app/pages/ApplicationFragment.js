@@ -12,6 +12,7 @@ import Global from '../utils/GlobalStorage';
 import PcInterface from '../utils/http/PcInterface';
 import EncryptionUtils from '../utils/EncryptionUtils';
 import Toasts from 'react-native-root-toast';
+import { commonLoginOut } from '../utils/common/businessUtil'
 const deviceWidth = Dimensions.get('window').width;
 
 export default class ApplicationFragment extends Component {
@@ -410,14 +411,6 @@ export default class ApplicationFragment extends Component {
                     </TouchableOpacity> */}
 
                     <TouchableOpacity style={styles.out_button} onPress={() => {
-                        Global.saveWithKeyValue('gesture', {
-                            gesture: '',
-                        });
-                        Global.saveWithKeyValue('gestureOpen', {
-                            gestureOpen: false,
-                        });
-                        Global.saveWithKeyValue('loginInformation', { userName: this.state.userName, passWord: '' });
-                        Actions.Login({ type: 'reset' });
                         let loginParams = {
                             params: {
                                 // log_status: '1',
@@ -425,15 +418,7 @@ export default class ApplicationFragment extends Component {
                                 userId: UserInfo.loginSet.result.rdata.loginUserInfo.userId
                             }
                         }
-                        //此处加入登录接口
-                        // EncryptionUtils.fillEncodeData(loginParams);
-                        // PcInterface.logout(loginParams, (set) => {
-                        //     // console.log(set)
-                        // })
-                        Fetch.postJson(Config.mainUrl + '/ws/logout', loginParams)
-                            .then((res) => {
-                                console.log(res)
-                            })
+                        commonLoginOut(loginParams)
                     }}>
                         <View style={{
                             marginBottom: 20,

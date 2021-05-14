@@ -16,6 +16,7 @@ let password = ''; //密码
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 import PushUtils from '../utils/PushUtils';
+import { commonLogin } from '../utils/common/businessUtil'
 
 Object.assign(Text.defaultProps, { allowFontScaling: false });
 export default class authcodeLogin extends Component {
@@ -53,46 +54,46 @@ export default class authcodeLogin extends Component {
 
 
 
-        Global.getValueForKey('loginInformation').then((ret) => {
-            if (ret.passWord) {
-                Global.getValueForKey('ifRemberPassword').then((ret11) => {
-                    if (ret11.rember == false) {
-                        th.setState({
-                            selected: false,
-                        })
-                        this.userName = ret.userName;
-                        this.passWord = '';
-                    } else {
-                        this.userName = ret.userName;
-                        this.passWord = ret.passWord;
-                        th.setState({
-                            selected: true,
-                        })
-                    }
-                })
-                th.setState({
-                    loading: false
-                })
+        // Global.getValueForKey('loginInformation').then((ret) => {
+        //     if (ret.passWord) {
+        //         Global.getValueForKey('ifRemberPassword').then((ret11) => {
+        //             if (ret11.rember == false) {
+        //                 th.setState({
+        //                     selected: false,
+        //                 })
+        //                 this.userName = ret.userName;
+        //                 this.passWord = '';
+        //             } else {
+        //                 this.userName = ret.userName;
+        //                 this.passWord = ret.passWord;
+        //                 th.setState({
+        //                     selected: true,
+        //                 })
+        //             }
+        //         })
+        //         th.setState({
+        //             loading: false
+        //         })
 
-                this.userName = '';
-                this.password = '';
-                th.setState({
-                    selected: true
-                })
-                Global.saveWithKeyValue('ifRemberPassword', { rember: true })
-                this.timer = setTimeout(
-                    () => {
-                        th.setState({
-                            showFirstPic: false,
-                            showWelcome: true,
-                            showIdentity: true,
-                        })
-                    },
-                    1000000
-                );
+        //         this.userName = '';
+        //         this.password = '';
+        //         th.setState({
+        //             selected: true
+        //         })
+        //         Global.saveWithKeyValue('ifRemberPassword', { rember: true })
+        //         this.timer = setTimeout(
+        //             () => {
+        //                 th.setState({
+        //                     showFirstPic: false,
+        //                     showWelcome: true,
+        //                     showIdentity: true,
+        //                 })
+        //             },
+        //             1000
+        //         );
 
-            }
-        });
+        //     }
+        // });
 
     }
     componentWillMount() {
@@ -107,15 +108,15 @@ export default class authcodeLogin extends Component {
         })
     }
     componentWillMount() {
-        Global.getValueForKey('loginInformation').then((ret) => {
-            if (ret) {
-                this.userName = ret.userName;
-                this.password = ret.passWord;
-                this.setState({
-                    loading: false
-                })
-            }
-        })
+        // Global.getValueForKey('loginInformation').then((ret) => {
+        //     if (ret) {
+        //         this.userName = ret.userName;
+        //         this.password = ret.passWord;
+        //         this.setState({
+        //             loading: false
+        //         })
+        //     }
+        // })
 
     }
     componentWillUnmount() {
@@ -207,6 +208,7 @@ export default class authcodeLogin extends Component {
                     }
                     Fetch.postJson(Config.mainUrl + '/ws/checkVerifyCode', entity)
                         .then((result) => {
+                            debugger
                             console.log(result)
                             if (result.rcode == '1') {
                                 let loginParams = {
@@ -216,60 +218,14 @@ export default class authcodeLogin extends Component {
                                     }
                                 }
                                 //此处加入登录接口
-                                EncryptionUtils.fillEncodeData(loginParams);
-                                PcInterface.login(loginParams, (set) => {
-                                    if (loginParams.params.userName == '') {
-                                        Alert.alert('', "请输入账号!", [{ text: '取消' },]);
-                                        return;
-                                    }
-                                    if (loginParams.params.passWord == '') {
-                                        Alert.alert('', "请输入密码!", [{ text: '取消' },]);
-                                        return;
-                                    }
-                                    if (set.result.rcode == 0) {
-                                        Alert.alert("提示", set.result.rmsg
-                                            , [
-                                                {
-                                                    text: "确定", onPress: () => {
-                                                        console.log("确定");
-                                                    }
-                                                }
-                                            ])
-                                        return;
-                                    }
-                                    else {
-                                        if (set.result.rcode == '1') {
-                                            let rawData = {
-                                                userInfo: loginParams,
-                                                loginSet: set
-                                            }
-                                            Global.getValueForKey('firstLogin').then(() => {
-                                                Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                                            })
-                                            PushUtils.registerC2Push();
-                                            UserInfo.initUserInfoWithDict(rawData);
-                                            Global.saveWithKeyValue('loginInformation', loginParams.params);
-                                            Actions.TabBar({ type: 'replace', identity: 'student' })
-                                            return;
-                                        } else if (set.result.rcode == 0) {
-                                            Alert.alert("提示", set.result.rmsg
-                                                , [
-                                                    {
-                                                        text: "确定", onPress: () => {
-                                                            console.log("确定");
-                                                        }
-                                                    }
-                                                ])
-                                            return;
-                                        }
-                                    }
-                                    // })
-                                    // }
-
-                                });
+                                commonLogin(loginParams, () => {
+                                    Actions.TabBar({ type: 'replace', identity: 'student' })
+                                    return;
+                                })
                             } else {
                                 Toast.showInfo(result.Msg, 1000)
                             }
+
                         })
                 } if (res.rcode == 2) {
                     var entity = {
@@ -287,57 +243,10 @@ export default class authcodeLogin extends Component {
                                     }
                                 }
                                 //此处加入登录接口
-                                EncryptionUtils.fillEncodeData(loginParams);
-                                PcInterface.login(loginParams, (set) => {
-                                    if (loginParams.params.userName == '') {
-                                        Alert.alert('', "请输入账号!", [{ text: '取消' },]);
-                                        return;
-                                    }
-                                    if (loginParams.params.passWord == '') {
-                                        Alert.alert('', "请输入密码!", [{ text: '取消' },]);
-                                        return;
-                                    }
-                                    if (set.result.rcode == 0) {
-                                        Alert.alert("提示", set.result.rmsg
-                                            , [
-                                                {
-                                                    text: "确定", onPress: () => {
-                                                        console.log("确定");
-                                                    }
-                                                }
-                                            ])
-                                        return;
-                                    }
-                                    else {
-                                        if (set.result.rcode == 1) {
-                                            let rawData = {
-                                                userInfo: loginParams,
-                                                loginSet: set
-                                            }
-                                            Global.getValueForKey('firstLogin').then(() => {
-                                                Global.saveWithKeyValue('firstLogin', { key: UUID.v4() });
-                                            })
-                                            PushUtils.registerC2Push();
-                                            UserInfo.initUserInfoWithDict(rawData);
-                                            Global.saveWithKeyValue('loginInformation', loginParams.params);
-                                            Actions.TabBar({ type: 'replace', identity: 'boss' })
-                                            return;
-                                        } else if (set.result.rcode == 0) {
-                                            Alert.alert("提示", set.result.rmsg
-                                                , [
-                                                    {
-                                                        text: "确定", onPress: () => {
-                                                            console.log("确定");
-                                                        }
-                                                    }
-                                                ])
-                                            return;
-                                        }
-                                    }
-                                    // })
-                                    // }
-
-                                });
+                                commonLogin(loginParams, () => {
+                                    Actions.TabBar({ type: 'replace', identity: 'boss' })
+                                    return;
+                                })
                             } else {
                                 Toast.showInfo(result.Msg, 1000)
                             }
