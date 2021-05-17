@@ -131,10 +131,10 @@ export default class Register extends Component {
                                     />}
                                 </View>
                                 {this.state.resetAuthCode == false ? 
-                                <TouchableOpacity style={{ width: 90, height: 34, backgroundColor: '#4D88FF', alignSelf: 'center', marginRight: 24, marginTop: 14, borderRadius: 5 }} onPress={() => this._countTime()}>
-                                    <Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>获取验证码</Text>
+                                <TouchableOpacity style={{ width: 100, height: 34, backgroundColor: '#4D88FF', alignSelf: 'center', marginRight: 24, marginTop: 14, borderRadius: 5 }} onPress={() => this._countTime()}>
+                                    <Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>发送验证码</Text>
                                 </TouchableOpacity>
-                                            : <TouchableOpacity disabled={true} style={{ width: 90, height: 34, backgroundColor: 'rgb(65,143,234)', alignSelf: 'center', marginRight: 24, marginTop: 14, borderRadius: 5 }}><Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>重新发送{this.state.resetMessage}</Text></TouchableOpacity>
+                                            : <TouchableOpacity disabled={true} style={{ width: 100, height: 34, backgroundColor: 'rgb(65,143,234)', alignSelf: 'center', marginRight: 24, marginTop: 14, borderRadius: 5 }}><Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>重新发送{this.state.resetMessage}</Text></TouchableOpacity>
                                 }
                             </View>
                                     </View>
@@ -192,15 +192,15 @@ export default class Register extends Component {
 
                                 <TouchableOpacity style={{ backgroundColor: 'transparent',   flexDirection: 'row',}} onPress={() => Actions.pop()}><Text style={{ color: '#999', fontSize: Config.MainFontSize - 1 }}>已有账号?</Text><Text style={{ color: 'rgb(65,143,234)', fontSize: Config.MainFontSize - 1, marginLeft: 5 }}>立即登录</Text></TouchableOpacity>
                             </View>
-                                <View style={{ alignItems: 'center', marginTop: theme.screenHeight / 5 }}>
-                                    <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ display:'flex', alignItems: 'center', backgroundColor: 'transparent', flexDirection: 'row'  }} >
-                                        <VectorIcon onPress={this.ifAgree.bind(this)} name={this.state.selected == true ? 'c2_im_check_circle_solid' : 'c2_im_select_circle'} style={{ color: '#3E7EFE', textAlign: 'center', fontSize: Config.MainFontSize,marginRight:5}} />
-                                        <Text style={{ color: 'grey', fontSize: Config.MainFontSize - 2 }}>已阅读并同意了</Text><View ><Text style={{ color: '#3E7EFE', fontSize: Config.MainFontSize - 2 }}>工薪易协议</Text></View>
-                                    </TouchableOpacity>
-                                </View> 
+                                
                             </View>
                         </ScrollView>
-                        
+                        <View style={{position:'absolute',width:deviceWidth,bottom:20, display:'flex',flexDirection:'row', alignItems: 'center',justifyContent:'center' }}>
+                            <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ display:'flex', alignItems: 'center', backgroundColor: 'transparent', flexDirection: 'row'  }} >
+                                <VectorIcon onPress={this.ifAgree.bind(this)} name={this.state.selected == true ? 'c2_im_check_circle_solid' : 'c2_im_select_circle'} style={{ color: '#3E7EFE', textAlign: 'center', fontSize: Config.MainFontSize,marginRight:5}} />
+                                <Text style={{ color: 'grey', fontSize: Config.MainFontSize - 2 }}>已阅读并同意了</Text><View ><Text style={{ color: '#3E7EFE', fontSize: Config.MainFontSize - 2 }}>工薪易协议</Text></View>
+                            </TouchableOpacity>
+                        </View> 
                         {this.zerenModal()}
                         </KeyboardAvoidingView>
                     </View >
@@ -274,7 +274,7 @@ export default class Register extends Component {
                                             onChangeText={(text) => { this.bendiCode = text }}
                                         />}
                                     </View>
-                                    {this.state.resetAuthCode == false ? <TouchableOpacity style={{ width: 120, height: 34, backgroundColor: 'rgb(65,143,234)', alignSelf: 'center', marginLeft: 70, marginTop: 14, borderRadius: 5 }} onPress={() => this._countTime()}><Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>获取验证码</Text></TouchableOpacity>
+                                    {this.state.resetAuthCode == false ? <TouchableOpacity style={{ width: 120, height: 34, backgroundColor: 'rgb(65,143,234)', alignSelf: 'center', marginLeft: 70, marginTop: 14, borderRadius: 5 }} onPress={() => this._countTime()}><Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>获取验证码2</Text></TouchableOpacity>
                                         : <TouchableOpacity disabled={true} style={{ width: 120, height: 34, backgroundColor: 'rgb(65,143,234)', alignSelf: 'center', marginLeft: 70, marginTop: 14, borderRadius: 5 }}><Text style={{ alignSelf: 'center', padding: 8, borderRadius: 5, alignContent: 'center', color: 'white' }}>重新发送{this.state.resetMessage}</Text></TouchableOpacity>
                                     }
                                 </View>

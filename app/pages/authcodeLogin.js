@@ -142,13 +142,13 @@ export default class authcodeLogin extends Component {
                                     style={styles.edit}
                                     underlineColorAndroid="transparent"
                                     keyboardType='numeric'
-                                    placeholder="请输入您的手机号"
+                                    placeholder="请输入手机号"
                                     placeholderTextColor='#c4c4c4'
                                     onChangeText={(text) => { this.telphone = text }}
                                 />}
                             </View>
-                            {this.state.resetAuthCode == false ? <TouchableOpacity style={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 100, height: 30, backgroundColor: '#4D88FF', marginTop: 6, borderRadius: 2 }} onPress={() => this._countTime()}><Text style={{ borderRadius: 2, color: 'white' }}>获取验证码</Text></TouchableOpacity>
-                                : <TouchableOpacity disabled={true} style={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 100, height: 30, backgroundColor: '#4D88FF', marginTop: 6, borderRadius: 2 }}><Text style={{ borderRadius: 2, color: 'white' }}>重新发送{this.state.resetMessage}</Text></TouchableOpacity>
+                            {this.state.resetAuthCode == false ? <TouchableOpacity style={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 90, height: 30, backgroundColor: '#4D88FF', marginTop: 6, borderRadius: 2 }} onPress={() => this._countTime()}><Text style={{ borderRadius: 2, color: 'white' }}>获取验证码</Text></TouchableOpacity>
+                                : <TouchableOpacity disabled={true} style={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 90, height: 30, backgroundColor: '#4D88FF', marginTop: 6, borderRadius: 2 }}><Text style={{ borderRadius: 2, color: 'white' }}>重新发送{this.state.resetMessage}</Text></TouchableOpacity>
                             }
                         </View>
                     </View>
@@ -562,7 +562,7 @@ const styles = StyleSheet.create({
         height: px2dp(43),
         fontSize: Config.MainFontSize + 3,
         paddingLeft: px2dp(0),
-        paddingRight: px2dp(100),
+        // paddingRight: px2dp(100),
         color: 'black',
         borderRadius: 18
     },

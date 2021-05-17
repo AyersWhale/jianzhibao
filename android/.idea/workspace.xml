@@ -11,14 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6705240a-2d82-4025-9372-4837276f122a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../ios/bd_front.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/provider_paths_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/provider_paths_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/bite/main.m" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/bite/main.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/authcodeLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/authcodeLogin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/project.xcworkspace/xcuserdata/gyx.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/project.xcworkspace/xcuserdata/gyx.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/xcshareddata/xcschemes/jianzhibao.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/xcshareddata/xcschemes/jianzhibao.xcscheme" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/xcuserdata/gyx.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/xcuserdata/gyx.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/xcuserdata/gyx.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/xcuserdata/gyx.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -345,6 +340,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -615,6 +611,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -626,8 +623,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -636,6 +631,7 @@
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
     <property name="ExportApk.BuildVariants" value="debug" />
     <property name="ExportApk.SignV1" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.project.structure.last.selected" value="c2-mobile" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
