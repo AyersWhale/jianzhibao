@@ -74,7 +74,7 @@ export default class Jianli extends Component {
             checked: false,
             checked1: false,
             value: '',
-            value_fangshi: '',
+            value_fangshi: '合伙人',//工作方式默认合伙人
             data_education: [],
             data_bank: [],
             value_education: '',//学历显示值
@@ -132,7 +132,7 @@ export default class Jianli extends Component {
                 , { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }
                 , { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }],
         };
-        this.sfzData()
+        //this.sfzData()
         this.onChange1 = this._onChange1.bind(this);
         // Global.getValueForKey('ifhide').then((ret5) => {
         //     if (ret5 == undefined || ret5 == null) {
@@ -263,12 +263,7 @@ export default class Jianli extends Component {
         }
         Fetch.postJson(Config.mainUrl + '/basicResume/checkBasicResume', entity)
             .then((res) => {
-                // var zwList = this.state.zwList
-                // for (var i in zwList){
-                //     if (zwList[i].dictdataValue == res.data.intentPost){
-                //         this.state.ifShowZw[i].show=true
-                //     }
-                // }
+                console.log('/basicResume/checkBasicResume结果', res)
                 if (res.data.postCode) {
                     var postCode = res.data.postCode
                     var codeArr = postCode.split(',')
@@ -299,10 +294,10 @@ export default class Jianli extends Component {
                     urgenPerson: res.data.urgenPerson ? res.data.urgenPerson : '',
                     urgenPersonRelation: res.data.contactRelations ? res.data.contactRelations : '',
                     urgenPhone: res.data.urgenPhone ? res.data.urgenPhone : '',
-                    value_fangshi: workTypeByCode(res.data.workMethod),
+                    value_fangshi: res.data.workMethod ? workTypeByCode(res.data.workMethod) : '合伙人',//初始值 合伙人
                     // value_fangshi: res.data.workMethod == 'LSYG' ? '合伙人' : res.data.workMethod == 'FQRZ' ? '兼职' : res.data.workMethod == 'LWPQ' ? '抢单' : '',
-                    postCode: res.data.postCode ? res.data.postCode : '',
-                    postName: res.data.intentPost,
+                    postCode: res.data.postCode ? res.data.postCode : '服务业',
+                    postName: res.data.intentPost ? res.data.intentPost : '15',
                     ifShowZw: ifShowZw ? ifShowZw : this.state.ifShowZw,
                     Sfz: res.data.identifyNum
                 }, () => {
@@ -409,7 +404,7 @@ export default class Jianli extends Component {
         this.setState({ value: value });
     }
     onChange_fangshi = (value) => {
-        this.setState({ value_fangshi: value });
+        this.setState({ value_fangshi: value[0] });
     }
     onChange_education = (value) => {
         let values = JSON.parse(value[0])
@@ -512,30 +507,30 @@ export default class Jianli extends Component {
             Toast.showInfo('请输入您的户籍地', 1000)
             return;
         }
-        if (this.state.homeAddress == '' || this.state.homeAddress == undefined) {
-            Toast.showInfo('请输入您的家庭地址', 1000)
-            return;
-        }
-        if (this.state.urgenPerson == '' || this.state.urgenPerson == undefined) {
-            Toast.showInfo('请输入紧急联系人', 1000)
-            return;
-        }
-        if (this.state.urgenPersonRelation == '' || this.state.urgenPersonRelation == undefined) {
-            Toast.showInfo('请输入紧急联系人与本人关系', 1000)
-            return;
-        }
-        if (this.state.urgenPhone == '' || this.state.urgenPhone == undefined) {
-            Toast.showInfo('请输入紧急联系人联系方式', 1000)
-            return;
-        }
-        if (phoneRule.test(this.state.urgenPhone) == false) {
+        // if (this.state.homeAddress == '' || this.state.homeAddress == undefined) {
+        //     Toast.showInfo('请输入您的家庭地址',   1000)
+        //     return;
+        // }
+        // if (this.state.urgenPerson == '' || this.state.urgenPerson == undefined) {
+        //     Toast.showInfo('请输入紧急联系人', 1000)
+        //     return;
+        // }
+        // if (this.state.urgenPersonRelation == '' || this.state.urgenPersonRelation == undefined) {
+        //     Toast.showInfo('请输入紧急联系人与本人关系', 1000)
+        //     return;
+        // }
+        // if (this.state.urgenPhone == '' || this.state.urgenPhone == undefined) {
+        //     Toast.showInfo('请输入紧急联系人联系方式', 1000)
+        //     return;
+        // }
+        if (this.state.urgenPhone && phoneRule.test(this.state.urgenPhone) == false) {
             Toast.showInfo('请输入正确的紧急联系人联系方式', 1000)
             return;
         }
-        if (this.state.Email !== '' && emailRule.test(this.state.Email + this.state.emailType) == false) {
-            Toast.showInfo('请输入正确的邮箱', 1000)
-            return;
-        }
+        // if (this.state.Email !== '' && emailRule.test(this.state.Email + this.state.emailType) == false) {
+        //     Toast.showInfo('请输入正确的邮箱', 1000)
+        //     return;
+        // }
         // if (this.state.value_bank == '' || this.state.value_bank == undefined) {
         //     Toast.showInfo('请选择开户行信息', 1000)
         //     return;
@@ -552,14 +547,14 @@ export default class Jianli extends Component {
         //     Toast.showInfo('请输入正确的银行卡卡号', 1000)
         //     return;
         // }
-        if (this.state.value_fangshi == '' || this.state.value_fangshi == undefined) {
-            Toast.showInfo('请选择工作方式', 1000)
-            return;
-        }
-        if (this.state.postCode.length == 0) {
-            Toast.showInfo('请选择意向行业', 1000)
-            return;
-        }
+        // if (this.state.value_fangshi == '' || this.state.value_fangshi == undefined) {
+        //     Toast.showInfo('请选择工作方式', 1000)
+        //     return;
+        // }
+        // if (this.state.postCode.length == 0) {
+        //     Toast.showInfo('请选择意向行业', 1000)
+        //     return;
+        // }
         if (this.props.userId == undefined) {
             var userId = UserInfo.loginSet.result.rdata.loginUserInfo.userId;
             var id = (this.state.id == undefined || this.state.id == '') ? this.state.uuid : this.state.id;
@@ -604,7 +599,7 @@ export default class Jianli extends Component {
                 //openbank: this.state.value_bank == undefined ? null : this.state.value_bank == "中国工商银行" ? "COMMERCIAL" : this.state.value_bank == "长沙银行" ? "CSBANK" : this.state.value_bank == "中国银行" ? "CHINABANK" : this.state.value_bank == "招商银行" ? "MERCHANTS" : this.state.value_bank == "中国建设银行" ? "CONSTRUCTION" : this.state.value_bank == "中国邮政储蓄银行" ? "EMS" : this.state.value_bank == "交通银行" ? "JTYH" : this.state.value_bank == "平安银行" ? "PAYY" : "AGRICULTURAL",//开户行
                 //salaryRanges: this.state.value_payment == undefined ? null : this.state.value_payment == "2000以下" ? "LQYX" : this.state.value_payment == "2000-3000" ? "LQDSQ" : this.state.value_payment == "4500-6000" ? "SQWDLQ" : this.state.value_payment == "6000-8000" ? "LQDBQ" : this.state.value_payment == "8000-10000" ? "BQDYW" : this.state.value_payment == "10000以上" ? "YWYS" : this.state.value_payment == "面议" ? "MY" : "BX",//薪资范围
                 salaryRanges: this.state.salaryRanges == '' ? 'BX' : this.state.salaryRanges,//薪资范围真实值
-                workMethod: workTypeByValue(this.state.value_fangshi[0]),
+                workMethod: workTypeByValue(this.state.value_fangshi),
                 // workMethod: this.state.value_fangshi == undefined ? null : this.state.value_fangshi == "兼职" ? "FQRZ" : this.state.value_fangshi == "抢单" ? "LWPQ" : this.state.value_fangshi == "合伙人" ? "LSYG" : "QRZ",//工作方式
                 //highestEducation: this.state.value_education == undefined ? null : this.state.value_education == '不限' ? "BX" : this.state.value_education == '高中以下' ? "0" : this.state.value_education == '高中(职高 技校)' ? "1" : this.state.value_education == '中专' ? "2" : this.state.value_education == '大专' ? "3" : this.state.value_education == '本科' ? "4" : this.state.value_education == '硕士研究生' ? "5" : this.state.value_education == '博士研究生' ? "6" : this.state.value_education == '博士后' ? "7" : "",//最高学历
                 highestEducation: this.state.zgxl_ZS,
@@ -692,6 +687,7 @@ export default class Jianli extends Component {
         if (this.state.showPop == false) {
             Fetch.postJson(Config.mainUrl + '/basicResume/viewBasicResume', (UserInfo.loginSet == undefined) ? "" : UserInfo.loginSet.result.rdata.loginUserInfo.userId)
                 .then((res) => {
+                    console.log('/basicResume/viewBasicResume结果', res)
                     let value_payment = ''
                     if (this.state.zxyqList_source.length) {
                         let zxyqList_source = this.state.zxyqList_source
@@ -729,6 +725,7 @@ export default class Jianli extends Component {
                     console.warn('显示行业' + ifShowZw)
                     this.setState({
                         Name: res[0].personName,
+                        userRealname: res[0].personName,
                         BornDate: this.timeChange(res[0].birthDay),
                         BornDate_new: res[0].birthDay,
                         educateFrom: res[0].educateFrom,
@@ -741,6 +738,7 @@ export default class Jianli extends Component {
                         profession: res[0].profession,
                         urgenPersonRelation: res[0].contactRelations,
                         M: res[0].sex == "MALE" ? true : false,
+                        W: res[0].sex == 'FEMALE' ? true : false,
                         urgenPerson: res[0].urgenPerson,
                         urgenPhone: res[0].urgenPhone,
                         id: res[0].id,
@@ -750,7 +748,7 @@ export default class Jianli extends Component {
                         //value_payment: res[0].salaryRanges == "LQYX" ? "2000以下" : res[0].salaryRanges == "LQDSQ" ? "2000-3000" : res[0].salaryRanges == "SQWDLQ" ? "4500-6000" : res[0].salaryRanges == "LQDBQ" ? "6000-8000" : res[0].salaryRanges == "BQDYW" ? "8000-10000" : res[0].salaryRanges == "YWYS" ? "10000以上" : res[0].salaryRanges == "MY" ? "面议" : res[0].salaryRanges == "BX" ? "不限" : "",//薪资范围
                         value_payment: value_payment,
                         salaryRanges: res[0].salaryRanges,
-                        value_fangshi: workTypeByCode(res[0].workMethod),
+                        value_fangshi: res[0].workMethod ? workTypeByCode(res[0].workMethod) : '合伙人',//初始值 合伙人
                         // value_fangshi: res[0].workMethod == "FQRZ" ? "兼职" : res[0].workMethod == "LWPQ" ? "抢单" : res[0].workMethod == "LSYG" ? "合伙人" : res[0].workMethod == "QRZ" ? "全日制" : "",//工作方式
                         //value_education: res[0].highestEducation == 'BX' ? "不限" : res[0].highestEducation == '0' ? "高中以下" : res[0].highestEducation == '1' ? "高中(职高 技校)" : res[0].highestEducation == '2' ? "中专" : res[0].highestEducation == '3' ? "大专" : res[0].highestEducation == '4' ? "本科" : res[0].highestEducation == '5' ? "硕士研究生" : res[0].highestEducation == '6' ? "博士研究生" : res[0].highestEducation == '7' ? "博士后" : "",//最高学历
                         value_education: value_education,
@@ -767,8 +765,8 @@ export default class Jianli extends Component {
                         { show: res[0].partTime.indexOf("4") != -1 ? true : false }, { show: res[0].partTime.indexOf("5") != -1 ? true : false }, { show: res[0].partTime.indexOf("6") != -1 ? true : false }],
 
                         ifShowZw: ifShowZw,
-
-
+                        postCode: res[0].postCode ? res[0].postCode : '服务业',
+                        postName: res[0].intentPost ? res[0].intentPost : '15',
                         //工作经历
                         workExperience: res[1],
                     }, () => { this.getJZName(); this.getZCName(); this.getZWName() })
@@ -982,8 +980,8 @@ export default class Jianli extends Component {
                                         height: 44,
                                         alignItems: 'center',
                                         width: Dimensions.get('window').width - 32,
-                                        //borderBottomColor: '#e7e7e7',
-                                        //borderBottomWidth: 1,
+                                        borderBottomColor: '#e7e7e7',
+                                        borderBottomWidth: 1,
                                         marginTop: 8,
                                         marginLeft: 8,
 
@@ -1012,7 +1010,34 @@ export default class Jianli extends Component {
                                             />
                                         </View> : <Text style={{ color: '#999', position: 'absolute', right: 10 }}  >{this.state.BornDate}</Text>}
                                     </View>
+                                    <View style={{
+                                        marginBottom: 1,
+                                        //flexDirection: 'row',
+                                        backgroundColor: "#fff",
+                                        height: 64,
+                                        width: Dimensions.get('window').width - 32,
+                                        // borderBottomColor: '#e7e7e7',
+                                        // borderBottomWidth: 1,
+                                        marginTop: 8,
+                                        marginLeft: 8,
 
+                                    }}>
+                                        <View style={{ flexDirection: 'row', height: 20 }}>
+                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
+                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>户 籍 地</Text>
+                                        </View>
+                                        {this.state.showPop ? <TextInput
+                                            style={{ marginLeft: 15, fontSize: Config.MainFontSize, color: '#999', width: Dimensions.get('window').width / 1.2 }}
+                                            underlineColorAndroid="transparent"
+                                            secureTextEntry={false}
+                                            placeholderTextColor="#c4c4c4"
+                                            numberOfLines={2}
+                                            maxLength={50}
+                                            value={this.state.nativePlace}
+                                            placeholder='请输入您的户籍地'
+                                            onChangeText={(text) => { this.setState({ nativePlace: text }) }}
+                                        /> : <View style={{ marginLeft: 10, marginTop: 10, width: Dimensions.get('window').width / 1.2 }}><Text style={{ color: '#999', marginLeft: 10 }} numberOfLines={2} >{this.state.nativePlace}</Text></View>}
+                                    </View>
                                     {this.state.showPop == true ?
                                         <View style={{
                                             marginBottom: 1,
@@ -1079,34 +1104,7 @@ export default class Jianli extends Component {
                                             <Text style={{ color: '#999', position: 'absolute', right: 10 }}>{this.state.Email}{this.state.emailType}</Text>
                                         </View>}
 
-                                    <View style={{
-                                        marginBottom: 1,
-                                        //flexDirection: 'row',
-                                        backgroundColor: "#fff",
-                                        height: 64,
-                                        width: Dimensions.get('window').width - 32,
-                                        borderBottomColor: '#e7e7e7',
-                                        borderBottomWidth: 1,
-                                        marginTop: 8,
-                                        marginLeft: 8,
 
-                                    }}>
-                                        <View style={{ flexDirection: 'row', height: 20 }}>
-                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
-                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>户 籍 地</Text>
-                                        </View>
-                                        {this.state.showPop ? <TextInput
-                                            style={{ marginLeft: 15, fontSize: Config.MainFontSize, color: '#999', width: Dimensions.get('window').width / 1.2 }}
-                                            underlineColorAndroid="transparent"
-                                            secureTextEntry={false}
-                                            placeholderTextColor="#c4c4c4"
-                                            numberOfLines={2}
-                                            maxLength={50}
-                                            value={this.state.nativePlace}
-                                            placeholder='请输入您的户籍地'
-                                            onChangeText={(text) => { this.setState({ nativePlace: text }) }}
-                                        /> : <View style={{ marginLeft: 10, marginTop: 10, width: Dimensions.get('window').width / 1.2 }}><Text style={{ color: '#999', marginLeft: 10 }} numberOfLines={2} >{this.state.nativePlace}</Text></View>}
-                                    </View>
 
                                     <View style={{
                                         marginBottom: 1,
@@ -1250,8 +1248,8 @@ export default class Jianli extends Component {
                                         marginLeft: 8,
                                     }}>
                                         <View style={{ flexDirection: 'row', height: 20 }}>
-                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
-                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>家庭住址</Text>
+                                            {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text> */}
+                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 21 }}>家庭住址</Text>
                                         </View>
                                         {this.state.showPop ? <TextInput
                                             style={{ marginLeft: 15, fontSize: Config.MainFontSize, color: '#999', width: Dimensions.get('window').width / 1.2 }}
@@ -1280,8 +1278,8 @@ export default class Jianli extends Component {
 
                                     }}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
-                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>紧急联系人</Text>
+                                            {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text> */}
+                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 21 }}>紧急联系人</Text>
                                         </View>
                                         {this.state.showPop ? <TextInput
                                             style={{ marginLeft: 15, fontSize: Config.MainFontSize, color: '#999', marginRight: 10, }}
@@ -1308,8 +1306,8 @@ export default class Jianli extends Component {
                                         marginLeft: 8,
                                     }}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
-                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>紧急联系人是本人的</Text>
+                                            {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text> */}
+                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 21 }}>紧急联系人是本人的</Text>
                                         </View>
                                         {this.state.showPop ? <TextInput
                                             style={{ marginLeft: 15, fontSize: Config.MainFontSize, color: '#999' }}
@@ -1334,8 +1332,8 @@ export default class Jianli extends Component {
                                         marginLeft: 8,
                                     }}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
-                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>紧急联系人联系方式</Text>
+                                            {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text> */}
+                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 21 }}>紧急联系人联系方式</Text>
                                         </View>
                                         {this.state.showPop ? <TextInput
                                             style={{ marginLeft: 15, fontSize: Config.MainFontSize, color: '#999', marginRight: 10, }}
@@ -1419,8 +1417,8 @@ export default class Jianli extends Component {
                                         >
                                             <List.Item arrow="horizontal" onPress={this.qjlx}>
                                                 <View style={{ flexDirection: 'row' }}>
-                                                    <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6 }}>*</Text>
-                                                    <Text style={{ fontSize: Config.MainFontSize, color: '#000', marginLeft: 10 }}>工作方式</Text>
+                                                    {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6 }}>*</Text> */}
+                                                    <Text style={{ fontSize: Config.MainFontSize, color: '#000', marginLeft: 16 }}>工作方式</Text>
                                                 </View>
                                             </List.Item>
                                         </Picker>
@@ -1440,8 +1438,8 @@ export default class Jianli extends Component {
 
                                     }}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text>
-                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10 }}>工作方式</Text>
+                                            {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, width: 6, marginLeft: 5 }}>*</Text> */}
+                                            <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 21 }}>工作方式</Text>
                                         </View>
                                         <Text style={{ color: '#999', position: 'absolute', right: 10 }}  >{this.state.value_fangshi}</Text>
                                     </View>}
@@ -1562,8 +1560,8 @@ export default class Jianli extends Component {
 
                                     }}>
                                             <View style={{ flexDirection: 'row' }}>
-                                                <Text style={{ color: 'red', fontSize: Config.MainFontSize, paddingBottom: 5, width: 6, marginLeft: 5 }}>*</Text>
-                                                <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 10, paddingBottom: 5 }}>意向行业</Text>
+                                                {/* <Text style={{ color: 'red', fontSize: Config.MainFontSize, paddingBottom: 5, width: 6, marginLeft: 5 }}>*</Text> */}
+                                                <Text style={{ color: "#222222", fontSize: Config.MainFontSize, marginLeft: 21, paddingBottom: 5 }}>意向行业</Text>
                                             </View>
                                             <View style={{ backgroundColor: 'transparent', position: 'absolute', right: 1, width: (this.state.postCode.length > 14) ? deviceWidth / 1.5 : null }}>
                                                 <Text style={{ color: '#999', paddingBottom: 5, }}  >{this.state.postCode}</Text>
@@ -1934,14 +1932,14 @@ export default class Jianli extends Component {
         //     Toast.showInfo('请输入正确的银行卡卡号', 1000)
         //     return;
         // }
-        if (this.state.value_fangshi == '' || this.state.value_fangshi == undefined) {
-            Toast.showInfo('请选择工作方式', 1000)
-            return;
-        }
-        if (this.state.postCode.length == 0) {
-            Toast.showInfo('请选择意向行业', 1000)
-            return;
-        }
+        // if (this.state.value_fangshi == '' || this.state.value_fangshi == undefined) {
+        //     Toast.showInfo('请选择工作方式', 1000)
+        //     return;
+        // }
+        // if (this.state.postCode.length == 0) {
+        //     Toast.showInfo('请选择意向行业', 1000)
+        //     return;
+        // }
         this.save();
     }
     showExpList() {

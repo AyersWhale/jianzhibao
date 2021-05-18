@@ -4,6 +4,7 @@
 'use strict'
 import React, { Component } from 'react';
 import {
+    BackHandler,
     StyleSheet,
     Text,
     View,
@@ -22,6 +23,20 @@ export default class Intended extends Component {
             ds: this.props.dataSource || [],
             chooseNum: 0,
         }
+    }
+    componentDidMount() {
+        //监听物理返回
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            Actions.pop()
+            this.props.onblock(this.state.ds);
+            return true;
+        });
+    }
+    componentWillUnmount() {
+        this.backHandler.remove();
+        this.setState = (state, callback) => {
+            return;
+        };
     }
     choose(idx) {
         // console.log(idx)

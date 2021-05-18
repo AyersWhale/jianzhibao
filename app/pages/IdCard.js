@@ -622,6 +622,7 @@ export default class MyCollection extends Component {
 
                             Fetch.postJson(Config.mainUrl + '/accountRegist/fddAuth', entityrz)
                                 .then((ress) => {
+                                    debugger
                                     Toast.dismiss();
                                     if (ress.rcode == '1') {
                                         Fetch.postJson(Config.mainUrl + '/basicResume/updateUserIdCard', entity)
