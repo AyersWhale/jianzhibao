@@ -76,8 +76,13 @@ export default class ConditionFilter extends Component {
             .then((json) => {
                 let dicMap = JSON.parse(json)
                 //debugger
+                console.log(dicMap)
+                let multiData_temp = dicMap.result.工作方式
+                multiData_temp = multiData_temp.filter((item, idx) => {
+                    return item.dictdataName !== "CHYW"
+                })
                 this.setState({
-                    multiData: dicMap.result.工作方式,
+                    multiData: multiData_temp,
                     multiData1: dicMap.result.学历,
                     gznx: dicMap.result.工作年限,
                     gwlb: dicMap.result.岗位类别,
@@ -171,8 +176,12 @@ export default class ConditionFilter extends Component {
             .then((json) => {
                 let dicMap = JSON.parse(json)
                 //debugger
+                let multiData_temp = dicMap.result.工作方式
+                multiData_temp = multiData_temp.filter((item, idx) => {
+                    return item.dictdataName !== "CHYW"
+                })
                 this.setState({
-                    multiData: dicMap.result.工作方式,
+                    multiData: multiData_temp,
                     multiData1: dicMap.result.学历,
                     gznx: dicMap.result.工作年限,
                     gwlb: dicMap.result.岗位类别,

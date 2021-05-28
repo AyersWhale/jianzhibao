@@ -22,7 +22,7 @@ import { C2AmapApi } from 'c2-mobile-amap';
 import Global from '../utils/GlobalStorage';
 import HandlerOnceTap from '../utils/HandlerOnceTap'
 import { Button } from 'react-native-elements';
-import {commonLoginOut} from '../utils/common/businessUtil'
+import { commonLoginOut } from '../utils/common/businessUtil'
 
 let _pageNo = 1;
 let jobPageSize = 10;
@@ -270,8 +270,8 @@ export default class HomeFragment extends Component {
                 this.setState({
                     currentPage: activePage
                 })
-                let offsetX = activePage * deviceWidth
-                scrollViewer.scrollTo({ x: offsetX, y: 0, animated: true })
+                let offsetX = activePage * (deviceWidth - 30)
+                scrollViewer.scrollTo({ x: offsetX, y: 0, animated: offsetX == 0 ? false : true })
             }
         }, this.props.duration)
     }
@@ -343,9 +343,9 @@ export default class HomeFragment extends Component {
                 Fetch.postJson(Config.mainUrl + '/ws/getAddress?x=' + lat + '&y=' + lng)
                     .then((res) => {
                         // console.log('后台返回的位置信息', res)
-                        var citytemp = JSON.parse(res.result.str)
+                        var citytemp = JSON.parse(res.result.str) || {}
                         // console.log(citytemp)
-                        var city = citytemp.result.addressComponent.city
+                        var city = citytemp.result ? citytemp.result.addressComponent.city : ''
                         if (result.coordinate.latitude == '0.000000') {
                             this.loadJobData(this.state.resultCon)
                             Alert.alert('温馨提示', '请开启定位权限可查看当前城市职位信息，方便向您推荐附近的职位信息', [{
@@ -358,6 +358,7 @@ export default class HomeFragment extends Component {
                                 //     () => this._getGps(),
                                 //     1000
                                 // );
+                                this.loadJobData(this.state.resultCon)
                                 setTimeout(() => {
                                     Toast.dismiss();
                                     Alert.alert("温馨提示", "定位失败，是否重新定位"
@@ -718,7 +719,9 @@ export default class HomeFragment extends Component {
         var lunbotuList = this.state.lunbotuList;
         const randerlunbo = lunbotuList.map((item, index) => {
             return (
-                <Image key={index} style={styles.imgstyle} source={{ uri: Config.mainUrl + '/iframefile/qybdirprocess/' + item.filePath }} ></Image>
+                <View style={styles.imgstyle}>
+                    <Image key={index} style={styles.imgstyle} source={{ uri: Config.mainUrl + '/iframefile/qybdirprocess/' + item.filePath }} ></Image>
+                </View>
             )
         })
         if (lunbotuList.length > 0) {
@@ -738,9 +741,7 @@ export default class HomeFragment extends Component {
                         onMomentumScrollEnd={(e) => this.onAnimationEnd(e)}
                     >
                         {randerlunbo}
-                        {/* <Image style={styles.imgstyle} source={require('../image/banner_01.png')}></Image>
-                        <Image style={styles.imgstyle} source={require('../image/banner_02.png')}></Image>
-                        <Image style={styles.imgstyle} source={require('../image/banner_03.png')}></Image> */}
+
                     </ScrollView>
                     <View style={styles.pageViewStyle}>
                         {this.renderPageIndex()}
@@ -2470,7 +2471,7 @@ const styles = StyleSheet.create({
     },
     imgstyle: {
         flex: 1,
-        height: 140,
+        height: (theme.screenWidth - 30) * (320 / 710),
         // theme.screenHeight / 3.5
         width: theme.screenWidth - 30,
         borderRadius: 4

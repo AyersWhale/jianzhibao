@@ -4,7 +4,7 @@
  */
 import React, { Component } from 'react';
 import { ListView, Linking, Text, View, StyleSheet, ScrollView, ImageBackground, Alert, Dimensions, Modal, Image, TouchableOpacity, Platform, BackHandler } from 'react-native';
-import { FileManager, Actions, VectorIcon, Config, SafeArea, Fetch, UserInfo, UUID } from 'c2-mobile';
+import { FileManager, Actions, VectorIcon, Config, SafeArea, Fetch, UserInfo, UUID, Toast } from 'c2-mobile';
 import theme from '../config/theme';
 import { C2AmapApi } from 'c2-mobile-amap';
 import TabNavigator from 'react-native-tab-navigator';
@@ -986,8 +986,13 @@ export default class JobInform extends Component {
                     },
                     {
                         text: "确定", onPress: () => {
+                            Toast.show({
+                                type: Toast.mode.C2MobileToastLoading,
+                                title: '投递中···',
+                            });
                             Fetch.postJson(Config.mainUrl + '/delivery/savedelivery', entity)
                                 .then((res) => {
+                                    Toast.dismiss();
                                     console.log(res)
                                     if (res.rcode == '1') {
                                         this.addApplyNumber();
@@ -998,6 +1003,9 @@ export default class JobInform extends Component {
                                     } else {
                                         Toasts.show('投递失败，请重试', { position: px2dp(-80), duration: 1000 });
                                     }
+                                })
+                                .catch((err) => {
+                                    Toast.dismiss();
                                 })
                         }
                     }
@@ -1085,8 +1093,13 @@ export default class JobInform extends Component {
             positionId: this.state.LSYGid,
             createTime: (new Date()).getTime(),
         }
+        Toast.show({
+            type: Toast.mode.C2MobileToastLoading,
+            title: '申请中···',
+        });
         Fetch.postJson(Config.mainUrl + '/delivery/savedelivery', entity)
             .then((res) => {
+                Toast.dismiss();
                 console.log(res)
                 if (res.rcode == '1') {
                     this.setState({
@@ -1100,6 +1113,9 @@ export default class JobInform extends Component {
                 } else {
                     Toasts.show('申请失败，请重试', { position: px2dp(-80), duration: 1000 });
                 }
+            })
+            .catch((err) => {
+                Toast.dismiss();
             })
     }
     daohang(place) {

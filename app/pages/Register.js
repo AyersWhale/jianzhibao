@@ -1814,7 +1814,7 @@ const styles = StyleSheet.create({
     out_body: {
         alignItems: 'center',
         alignSelf: 'center',
-        backgroundColor: 'rgb(65,143,234)',
+        backgroundColor: '#3E7EFE',
         width: Dimensions.get('window').width / 1.3,
         height: 52,
         marginTop: 20,

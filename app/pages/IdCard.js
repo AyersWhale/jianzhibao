@@ -283,7 +283,7 @@ export default class MyCollection extends Component {
             });
     }
     handleCheckCard(dataSource) {
-        debugger
+        // debugger
         let coordinateArray = dataSource.card_region
         // coordinateArray 坐标数组
         //检测图片是不是符合标准
@@ -602,7 +602,7 @@ export default class MyCollection extends Component {
                         imageSource1: ''
                     })
                 } else {
-                    debugger
+                    // debugger
                     NetInfo.isConnected.fetch().done((isConnected) => {
                         if (!isConnected && Platform.OS == 'android') {
                             Toasts.show('网络超时，请检查您的网络并重新提交')
@@ -622,7 +622,7 @@ export default class MyCollection extends Component {
 
                             Fetch.postJson(Config.mainUrl + '/accountRegist/fddAuth', entityrz)
                                 .then((ress) => {
-                                    debugger
+                                    // debugger
                                     Toast.dismiss();
                                     if (ress.rcode == '1') {
                                         Fetch.postJson(Config.mainUrl + '/basicResume/updateUserIdCard', entity)

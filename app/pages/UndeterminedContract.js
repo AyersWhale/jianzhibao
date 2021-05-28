@@ -149,52 +149,46 @@ export default class UndeterminedContract extends Component {
             // </View>
             <View >
                 <TouchableOpacity style={{ backgroundColor: '#fff' }} onPress={() => Actions.UndeterminedContract1({ rowData: rowData })}>
-                    <View style={{ backgroundColor: 'transparent', marginLeft: 20, paddingTop: 10, paddingBottom: 10, width: deviceWidth - 20, height: 125 }}>
+                    <View style={{ backgroundColor: 'transparent', marginLeft: 20, paddingTop: 10, paddingBottom: 10, width: deviceWidth - 20 }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ fontSize: Config.MainFontSize + 3, fontWeight: 'bold', maxWidth: deviceWidth / 1.8, color: '#333' }}>{rowData.jobContent}</Text>
 
                             <Text style={{ fontSize: Config.MainFontSize, color: '#EE2C2C', position: 'absolute', right: 20 }}>{rowData.money}</Text>
 
                         </View>
-                        <Text numberOfLines={1} style={{ fontSize: Config.MainFontSize + 1, position: 'absolute', bottom: 50, width: deviceWidth / 1.5, color: '#666' }}>{rowData.jfEmployer}</Text>
-                        <View style={{ position: 'absolute', bottom: 10, flexDirection: 'row' }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    {rowData.cityName == '' || rowData.cityName == undefined ? null :
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ fontSize: Config.MainFontSize - 1, color: "#AAA" }}>{rowData.cityName + '/'}</Text>
-                                        </View>
-                                    }
+                        <Text numberOfLines={1} style={{ fontSize: Config.MainFontSize + 1, width: deviceWidth / 1.5, color: '#666' }}>{rowData.jfEmployer}</Text>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text numberOfLines={1} style={{ width: deviceWidth - 24, }}>
+                                {rowData.cityName == '' || rowData.cityName == undefined ? null :
+                                    <Text style={{ fontSize: Config.MainFontSize - 1, color: "#AAA" }}>{rowData.cityName + '/'}</Text>
+                                }
 
-                                    {rowData.areaName == '' || rowData.areaName == undefined ? null :
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <Text style={{ fontSize: Config.MainFontSize - 1, color: "#AAA" }}>{rowData.areaName}</Text>
-                                        </View>
+                                {rowData.areaName == '' || rowData.areaName == undefined ? null :
+                                    <Text style={{ fontSize: Config.MainFontSize - 1, color: "#AAA" }}>{rowData.areaName}</Text>
+                                }
+                            </Text>
+                            {rowData.REMARK1 == '' || rowData.REMARK1 == undefined ? null :
+                                <View style={{ display: "flex", flexDirection: "row", }}>
+                                    {/* <View style={{ padding: 3, backgroundColor: '#F2F2F2', alignItems: 'center', marginRight: 4 }}> */}
+                                    <Text style={{ fontSize: Config.MainFontSize - 1, color: '#AAA', }}>{(rowData.REMARK1 == 'FQRZ' ? '兼职' : rowData.REMARK1 == 'LWPQ' ? '抢单' : rowData.REMARK1 == 'LSYG' ? '合伙人' : rowData.REMARK1 == 'CHYW' ? '撮合' : rowData.REMARK1 == 'QRZ' ? '全日制' : '')}</Text>
+                                    {/* </View> */}
+                                    {
+                                        rowData.REMARK1 == "LSYG" || rowData.REMARK1 == 'CHYW' ?
+                                            // <View style={{ padding: 3, backgroundColor: '#F2F2F2', alignItems: 'center', marginRight: 4 }}>
+                                            <Text style={{ fontSize: Config.MainFontSize - 1, color: '#AAA', marginLeft: 8 }}>{rowData.isNeedYyzz == "1" ? "不需要电子营业执照" : "需要电子营业执照"}</Text>
+                                            // </View>
+                                            : null
                                     }
                                 </View>
-                                {rowData.REMARK1 == '' || rowData.REMARK1 == undefined ? null :
-                                    <View style={{ display: "flex", flexDirection: "row", }}>
-                                        {/* <View style={{ padding: 3, backgroundColor: '#F2F2F2', alignItems: 'center', marginRight: 4 }}> */}
-                                        <Text style={{ fontSize: Config.MainFontSize - 1, color: '#AAA', }}>{(rowData.REMARK1 == 'FQRZ' ? '兼职' : rowData.REMARK1 == 'LWPQ' ? '抢单' : rowData.REMARK1 == 'LSYG' ? '合伙人' : rowData.REMARK1 == 'CHYW' ? '撮合' : rowData.REMARK1 == 'QRZ' ? '全日制' : '')}</Text>
-                                        {/* </View> */}
-                                        {
-                                            rowData.REMARK1 == "LSYG" || rowData.REMARK1 == 'CHYW' ?
-                                                // <View style={{ padding: 3, backgroundColor: '#F2F2F2', alignItems: 'center', marginRight: 4 }}>
-                                                <Text style={{ fontSize: Config.MainFontSize - 1, color: '#AAA', marginLeft: 8 }}>{rowData.isNeedYyzz == "1" ? "不需要电子营业执照" : "需要电子营业执照"}</Text>
-                                                // </View>
-                                                : null
-                                        }
-                                    </View>
-                                }
-                            </View>
+                            }
                         </View>
-                        {rowData.createTime == '' || rowData.createTime == undefined ? null :
-                            <View style={{ position: 'absolute', right: 20, bottom: 10, flexDirection: 'row' }}>
-                                {/* <Text style={{ fontSize: Config.MainFontSize - 4 }}>发布时间：</Text> */}
-                                <Text style={{ fontSize: Config.MainFontSize - 1, color: '#AAA' }}>{this.timeChange(rowData.updateTime)}</Text>
-                            </View>
-                        }
                     </View>
+                    {rowData.createTime == '' || rowData.createTime == undefined ? null :
+                        <View style={{ position: 'absolute', right: 20, bottom: 10, flexDirection: 'row' }}>
+                            {/* <Text style={{ fontSize: Config.MainFontSize - 4 }}>发布时间：</Text> */}
+                            <Text style={{ fontSize: Config.MainFontSize - 1, color: '#AAA' }}>{this.timeChange(rowData.updateTime)}</Text>
+                        </View>
+                    }
                 </TouchableOpacity>
                 <View style={{ height: 8, backgroundColor: '#E8E8E8', width: theme.screenWidth }} />
             </View >
