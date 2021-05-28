@@ -342,8 +342,8 @@ export default class HomeFragment extends Component {
                 var lng = keepSixDecimal(bd_Coordinate.bd_lng)
                 Fetch.postJson(Config.mainUrl + '/ws/getAddress?x=' + lat + '&y=' + lng)
                     .then((res) => {
-                        // console.log('后台返回的位置信息', res)
-                        var citytemp = JSON.parse(res.result.str) || {}
+                        console.log('后台返回的位置信息', res)
+                        var citytemp = res.result ? JSON.parse(res.result.str) : {}
                         // console.log(citytemp)
                         var city = citytemp.result ? citytemp.result.addressComponent.city : ''
                         if (result.coordinate.latitude == '0.000000') {
@@ -719,7 +719,7 @@ export default class HomeFragment extends Component {
         var lunbotuList = this.state.lunbotuList;
         const randerlunbo = lunbotuList.map((item, index) => {
             return (
-                <View style={styles.imgstyle}>
+                <View style={styles.imgstyle} key={index}>
                     <Image key={index} style={styles.imgstyle} source={{ uri: Config.mainUrl + '/iframefile/qybdirprocess/' + item.filePath }} ></Image>
                 </View>
             )
