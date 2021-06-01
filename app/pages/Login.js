@@ -531,27 +531,27 @@ export default class Login extends Component {
                     <QySwiper paginationStyle={{ bottom: theme.screenHeight / 4 }}
                         autoplay autoplayTimeout={5} showsButtons activeDotColor='#D0DEFA' dotColor='#F2F2F2'
                         prevButton={
-                            <TouchableOpacity style={{ backgroundColor: '#3E7EFE', width: deviceWidth / 3, height: 50, borderRadius: 5, marginRight: 40, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={this.register.bind(this)}>
-                                <Text style={{ fontSize: Config.MainFontSize + 1, color: 'white' }}>我要注册</Text>
+                            <TouchableOpacity style={{ backgroundColor: '#3E7EFE', width: deviceWidth / 3, height: 40, borderRadius: 2, marginRight: 40, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={this.register.bind(this)}>
+                                <Text style={{ fontSize: Config.MainFontSize + 2, color: 'white' }}>我要注册</Text>
                             </TouchableOpacity>
                         }
                         nextButton={
-                            <TouchableOpacity style={{ backgroundColor: '#3E7EFE', width: deviceWidth / 3, height: 50, borderRadius: 5, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => this.setState({ showFirstPic: false, showIdentityDl: true })}>
-                                <Text style={{ fontSize: Config.MainFontSize + 1, color: 'white' }}>我要登录</Text>
+                            <TouchableOpacity style={{ backgroundColor: '#3E7EFE', width: deviceWidth / 3, height: 40, borderRadius: 2, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => this.setState({ showFirstPic: false, showIdentityDl: true })}>
+                                <Text style={{ fontSize: Config.MainFontSize + 2, color: 'white' }}>我要登录</Text>
                             </TouchableOpacity>
                         }
                         buttonWrapperStyle={{ position: 'absolute', bottom: 60, width: deviceWidth, height: 30, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}
                     >
                         <View>
-                            <Image style={styles.imgstyle} source={require('../image/guide1.jpg')} >
+                            <Image style={styles.imgstyle} source={require('../image/guide1.png')} >
                             </Image>
                         </View>
                         <View>
-                            <Image style={styles.imgstyle} source={require('../image/guide2.jpg')} >
+                            <Image style={styles.imgstyle} source={require('../image/guide2.png')} >
                             </Image>
                         </View>
                         <View>
-                            <Image style={styles.imgstyle} source={require('../image/guide3.jpg')} >
+                            <Image style={styles.imgstyle} source={require('../image/guide3.png')} >
                             </Image>
                         </View>
                     </QySwiper>
