@@ -326,6 +326,7 @@ export default class UndeterminedContract extends Component {
 
     }
     _renderItem(rowData) {
+        debugger
         var url = url = Config.mainUrl + '/ws/getFilePathByApp?id=' + rowData.ID + '&type=' + rowData.WORK_TYPE;
         var entity = {
             contractId: rowData.CONTRACT_NO ? rowData.CONTRACT_NO : null
@@ -333,6 +334,7 @@ export default class UndeterminedContract extends Component {
         return (
             <TouchableOpacity style={{ backgroundColor: 'white', borderRadius: 10, width: deviceWidth - 20, marginBottom: Platform.OS == 'ios' ? 10 : 20 }}
                 onPress={() => {
+                    debugger
                     !rowData.CONTRACT_NO ? fetch(url, {
                         method: 'GET',
                         headers: {
@@ -464,9 +466,9 @@ export default class UndeterminedContract extends Component {
                                         Actions.PDFWebView({ url: Config.mainUrl + '/' + result[0].path })
                                     } else if (result[0].type == 'jpg' || result[0].type == 'png' || result[0].type == 'JPG' || result[0].type == 'PNG') {
                                         if (Platform.OS == 'ios') {
-                                            Actions.C2WebView({ url: Config.mainUrl + '/' + rowData.path })
+                                            Actions.C2WebView({ url: Config.mainUrl + '/' + result[0].path })
                                         } else {
-                                            Actions.ImageZoom({ url: Config.mainUrl + '/' + rowData.path })
+                                            Actions.ImageZoom({ url: Config.mainUrl + '/' + result[0].path })
                                         }
                                     } else if (result[0].type == 'docx' || result[0].type == 'doc') {
                                         Alert.alert('温馨提示', '当前格式在手机端不支持查看,请去PC端查看', [{

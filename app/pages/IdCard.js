@@ -370,39 +370,43 @@ export default class MyCollection extends Component {
                     if (!this.handleCheckCard(dataSource)) {
                         return
                     }
-                    if (Platform.OS == 'ios') {
-                        this.setState({
-                            imageSource: response.uri
-                        })
-                        this.uploadInfo_front(response, dataSource)
-                    } else {
-                        let size = { width: imgWidth, height: imgHeight }
-                        let offset = dataSource.card_region[0]
-                        if (dataSource.angle == 270) {
-                            size = { width: imgHeight, height: imgWidth }
-                            offset = [dataSource.card_region[0].y, dataSource.card_region[0].x]
-                        }
-                        var cropData = {
-                            offset: offset,//从原图裁剪的起始坐标
-                            size: size,//裁剪的宽高
-                            resizeMode: 'contain',//缩放图像时使用的调整大小模式
-                            displaySize: { width: imgWidth, height: imgHeight }//裁剪后生成图片的大小
-                            // displaySize: { width: deviceWidth, height: deviceWidth / 1.6 }//裁剪后生成图片的大小
-                        }
-                        ImageEditor.cropImage(response.uri,
-                            cropData, (successURI) => {
-                                console.log(successURI)
-                                this.setState({
-                                    imageSource: successURI
-                                }, () => {
-                                    this.uploadInfo_front({ ...response, uri: successURI }, dataSource)
-                                })
-                            },
-                            (error) => {
-                                console.log('剪裁失败', error)
-                            }
-                        )
-                    }
+                    this.setState({
+                        imageSource: response.uri
+                    })
+                    this.uploadInfo_front(response, dataSource)
+                    // if (Platform.OS == 'ios') {
+                    //     this.setState({
+                    //         imageSource: response.uri
+                    //     })
+                    //     this.uploadInfo_front(response, dataSource)
+                    // } else {
+                    //     let size = { width: imgWidth, height: imgHeight }
+                    //     let offset = dataSource.card_region[0]
+                    //     if (dataSource.angle == 270) {
+                    //         size = { width: imgHeight, height: imgWidth }
+                    //         offset = [dataSource.card_region[0].y, dataSource.card_region[0].x]
+                    //     }
+                    //     var cropData = {
+                    //         offset: offset,//从原图裁剪的起始坐标
+                    //         size: size,//裁剪的宽高
+                    //         resizeMode: 'contain',//缩放图像时使用的调整大小模式
+                    //         displaySize: { width: imgWidth, height: imgHeight }//裁剪后生成图片的大小
+                    //         // displaySize: { width: deviceWidth, height: deviceWidth / 1.6 }//裁剪后生成图片的大小
+                    //     }
+                    //     ImageEditor.cropImage(response.uri,
+                    //         cropData, (successURI) => {
+                    //             console.log(successURI)
+                    //             this.setState({
+                    //                 imageSource: successURI
+                    //             }, () => {
+                    //                 this.uploadInfo_front({ ...response, uri: successURI }, dataSource)
+                    //             })
+                    //         },
+                    //         (error) => {
+                    //             console.log('剪裁失败', error)
+                    //         }
+                    //     )
+                    // }
                 }).catch((err) => {
                     Toasts.show('请上传清晰的身份证正面照片', { position: -80 })
                     console.log('调用第三方接口失败', err)
@@ -445,39 +449,43 @@ export default class MyCollection extends Component {
                     if (!this.handleCheckCard(dataSource)) {
                         return
                     }
-                    if (Platform.OS == 'ios') {
-                        this.setState({
-                            imageSource1: response.uri
-                        })
-                        this.uploadInfo_back(response, dataSource)
-                    } else {
-                        let size = { width: imgWidth, height: imgHeight }
-                        let offset = dataSource.card_region[0]
-                        if (dataSource.angle == 270) {
-                            size = { width: imgHeight, height: imgWidth }
-                            offset = [dataSource.card_region[0].y, dataSource.card_region[0].x]
-                        }
-                        var cropData = {
-                            offset: offset,//从原图裁剪的起始坐标
-                            size: size,//裁剪的宽高
-                            resizeMode: 'contain',//缩放图像时使用的调整大小模式
-                            displaySize: { width: imgWidth, height: imgHeight }//裁剪后生成图片的大小
-                            // displaySize: { width: deviceWidth, height: deviceWidth / 1.6 }//裁剪后生成图片的大小
-                        }
-                        ImageEditor.cropImage(response.uri,
-                            cropData, (successURI) => {
-                                console.log(successURI)
-                                this.setState({
-                                    imageSource1: successURI
-                                }, () => {
-                                    this.uploadInfo_back({ ...response, uri: successURI }, dataSource)
-                                })
-                            },
-                            (error) => {
-                                console.log('剪裁失败', error)
-                            }
-                        )
-                    }
+                    this.setState({
+                        imageSource1: response.uri
+                    })
+                    this.uploadInfo_back(response, dataSource)
+                    // if (Platform.OS == 'ios') {
+                    //     this.setState({
+                    //         imageSource1: response.uri
+                    //     })
+                    //     this.uploadInfo_back(response, dataSource)
+                    // } else {
+                    //     let size = { width: imgWidth, height: imgHeight }
+                    //     let offset = dataSource.card_region[0]
+                    //     if (dataSource.angle == 270) {
+                    //         size = { width: imgHeight, height: imgWidth }
+                    //         offset = [dataSource.card_region[0].y, dataSource.card_region[0].x]
+                    //     }
+                    //     var cropData = {
+                    //         offset: offset,//从原图裁剪的起始坐标
+                    //         size: size,//裁剪的宽高
+                    //         resizeMode: 'contain',//缩放图像时使用的调整大小模式
+                    //         displaySize: { width: imgWidth, height: imgHeight }//裁剪后生成图片的大小
+                    //         // displaySize: { width: deviceWidth, height: deviceWidth / 1.6 }//裁剪后生成图片的大小
+                    //     }
+                    //     ImageEditor.cropImage(response.uri,
+                    //         cropData, (successURI) => {
+                    //             console.log(successURI)
+                    //             this.setState({
+                    //                 imageSource1: successURI
+                    //             }, () => {
+                    //                 this.uploadInfo_back({ ...response, uri: successURI }, dataSource)
+                    //             })
+                    //         },
+                    //         (error) => {
+                    //             console.log('剪裁失败', error)
+                    //         }
+                    //     )
+                    // }
                 }).catch((err) => {
                     Toasts.show('请上传清晰的身份证背面照片', { position: -80 })
                     console.log('调用第三方接口失败', err)

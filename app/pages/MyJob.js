@@ -321,19 +321,48 @@ export default class MyJob extends Component {
         )
 
     }
+    getStatus(param) {
+        return new Promise((resolve, reject) => {
+            Fetch.postJson(Config.mainUrl + '/lsygSettle/getStatus', param)
+                .then((res) => {
+                    console.log(res)
+                    if (res) {//合同是否终止
+                        resolve(res.isContractEnd)
+                    }
+                })
+                .catch((err) => {
+                    reject()
+                    console.log(err)
+                })
+        })
+    }
     CountMoney(rowData) {
         var temp = {
             creatorId: rowData.creatorId,
             contractId: rowData.contractId
         }
-        Fetch.postJson(Config.mainUrl + '/lsygSettle/getNoPayJdxjs', temp)
-            .then((res) => {
-                if (res.length > 0) {
-                    Toast.showInfo('存在未完成结算的阶段性/尾款结算单，不能发起结算！', 2000);
-                } else {
-                    Actions.CountMoney({ rowData: rowData })
-                }
-            })
+        this.getStatus().then((value) => {
+            if (!value) {
+                Fetch.postJson(Config.mainUrl + '/lsygSettle/getNoPayJdxjs', temp)
+                    .then((res) => {
+                        if (res.length > 0) {
+                            Toast.showInfo('存在未完成结算的阶段性/尾款结算单，不能发起结算！', 2000);
+                        } else {
+                            Actions.CountMoney({ rowData: rowData })
+                        }
+                    })
+            } else {
+                Alert.alert("温馨提示", '该合同已结束，不能发起结算！'
+                    , [
+                        {
+                            text: "确定", onPress: () => {
+
+                            }
+                        }
+                    ])
+                this.getLSYGjobList()
+            }
+        })
     }
     bohuiModal() {
         var rowData = this.state.rowData
@@ -412,6 +441,7 @@ export default class MyJob extends Component {
         temp = {
             positionId: rowData.positionId,
             getJobId: rowData.getJobInfoId,
+            userId: rowData.userId,
         }
         Fetch.postJson(Config.mainUrl + '/getJobInfo/jobStopOther', temp)
             .then((res) => {

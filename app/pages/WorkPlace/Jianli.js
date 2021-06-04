@@ -132,7 +132,7 @@ export default class Jianli extends Component {
                 , { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }
                 , { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }, { show: false }],
         };
-        //this.sfzData()
+        this.sfzData()
         this.onChange1 = this._onChange1.bind(this);
         // Global.getValueForKey('ifhide').then((ret5) => {
         //     if (ret5 == undefined || ret5 == null) {
@@ -770,6 +770,9 @@ export default class Jianli extends Component {
                         //工作经历
                         workExperience: res[1],
                     }, () => { this.getJZName(); this.getZCName(); this.getZWName() })
+                })
+                .catch((err) => {
+                    console.log('viewBasicResume', err)
                 })
         }
 
