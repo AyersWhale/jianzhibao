@@ -36,6 +36,8 @@
 		598A6A6C2469337900EE45A3 /* C2MobileQRcode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 596DE8E22445589F007F7449 /* C2MobileQRcode.framework */; };
 		5994922526492406004D2358 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5994922426492406004D2358 /* libRCTBlob.a */; };
 		59A6176A26244F1E001EB65E /* bd_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 59A6175626244F1E001EB65E /* bd_front.png */; };
+		59D82A822678848A0018BCB4 /* bd_front9.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D82A6E267884890018BCB4 /* bd_front9.png */; };
+		59D82A84267884990018BCB4 /* bd_back9.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D82A83267884990018BCB4 /* bd_back9.png */; };
 		59FD77FF264688E1006B541D /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FD77FE264688E1006B541D /* libRCTBlob.a */; };
 		59FD7801264688E8006B541D /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FD7800264688E8006B541D /* libRCTActionSheet.a */; };
 		D69718B01E10F4C000C0B5C5 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D69718A71E10F4C000C0B5C5 /* Entypo.ttf */; };
@@ -240,6 +242,8 @@
 		59B2B17525FC62430024ABE5 /* libRCTNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTNetwork.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B2B18A25FC62550024ABE5 /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B2B18C25FC62780024ABE5 /* libRCTLinking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTLinking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		59D82A6E267884890018BCB4 /* bd_front9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bd_front9.png; sourceTree = "<group>"; };
+		59D82A83267884990018BCB4 /* bd_back9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bd_back9.png; sourceTree = "<group>"; };
 		59FD77E526468681006B541D /* libRCTBlob.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTBlob.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FD77FA2646868E006B541D /* libRCTActionSheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTActionSheet.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FD77FC26468712006B541D /* libRCTBlob.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTBlob.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -516,6 +520,8 @@
 		D69718A41E10F46A00C0B5C5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				59D82A83267884990018BCB4 /* bd_back9.png */,
+				59D82A6E267884890018BCB4 /* bd_front9.png */,
 				591FD7D22625869700A896C6 /* bd_back.png */,
 				59A6175626244F1E001EB65E /* bd_front.png */,
 				533F72C81F3C30AF00D65CA5 /* C2VectorIcons.ttf */,
@@ -813,12 +819,14 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D69718B21E10F4C000C0B5C5 /* FontAwesome.ttf in Resources */,
 				D69718B11E10F4C000C0B5C5 /* EvilIcons.ttf in Resources */,
+				59D82A822678848A0018BCB4 /* bd_front9.png in Resources */,
 				D69718B41E10F4C000C0B5C5 /* Ionicons.ttf in Resources */,
 				591FD7E62625869700A896C6 /* bd_back.png in Resources */,
 				D69718B81E10F4C000C0B5C5 /* Zocial.ttf in Resources */,
 				D69718B31E10F4C000C0B5C5 /* Foundation.ttf in Resources */,
 				D69718B71E10F4C000C0B5C5 /* SimpleLineIcons.ttf in Resources */,
 				D69718B01E10F4C000C0B5C5 /* Entypo.ttf in Resources */,
+				59D82A84267884990018BCB4 /* bd_back9.png in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -939,7 +947,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 237;
+				CURRENT_PROJECT_VERSION = 239;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = TB6NDP8A5K;
 				ENABLE_BITCODE = NO;
@@ -958,7 +966,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 2.3.7;
+				MARKETING_VERSION = 2.3.9;
 				MiSDKRun = debug;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -984,7 +992,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 237;
+				CURRENT_PROJECT_VERSION = 239;
 				DEVELOPMENT_TEAM = TB6NDP8A5K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/c2-mobile-amap/ios/Library/**";
@@ -1002,7 +1010,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 2.3.7;
+				MARKETING_VERSION = 2.3.9;
 				MiSDKRun = online;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
