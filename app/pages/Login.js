@@ -536,6 +536,7 @@ export default class Login extends Component {
                             </TouchableOpacity>
                         }
                         nextButton={
+                            // <TouchableOpacity style={{ backgroundColor: '#3E7EFE', width: deviceWidth / 3, height: 40, borderRadius: 2, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => Actions.TestListView()}>
                             <TouchableOpacity style={{ backgroundColor: '#3E7EFE', width: deviceWidth / 3, height: 40, borderRadius: 2, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => this.setState({ showFirstPic: false, showIdentityDl: true })}>
                                 <Text style={{ fontSize: Config.MainFontSize + 2, color: 'white' }}>我要登录</Text>
                             </TouchableOpacity>

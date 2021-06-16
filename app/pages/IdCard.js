@@ -101,7 +101,7 @@ export default class MyCollection extends Component {
                                     <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: Config.MainFontSize + 1, marginTop: 5 }}>点击上传带头像一面</Text>
                                 </View> :
                                 <View style={{ flexDirection: 'column', marginLeft: 12 }}>
-                                    <Image source={{ uri: this.state.imageSource }} style={{ width: deviceWidth / 2 - 20, height: deviceHeigth / 5, borderRadius: 5 }} />
+                                    <Image source={{ uri: this.state.imageSource }} style={{ width: deviceWidth / 2 - 20, height: deviceHeigth / 5, borderRadius: 5, resizeMode: 'contain', transform: [{ rotate: '90deg' }] }} />
                                     <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: Config.MainFontSize + 1, marginTop: 5 }}>点击上传带头像一面</Text>
                                 </View>}
                         </TouchableOpacity>
@@ -112,7 +112,7 @@ export default class MyCollection extends Component {
                                     <Text style={{ textAlign: 'center', marginTop: 5, fontWeight: 'bold', fontSize: Config.MainFontSize + 1 }}>点击上传带国徽一面</Text>
                                 </View> :
                                 <View style={{ flexDirection: 'column', marginLeft: 16 }}>
-                                    <Image source={{ uri: this.state.imageSource1 }} style={{ width: deviceWidth / 2 - 20, height: deviceHeigth / 5, borderRadius: 5 }} />
+                                    <Image source={{ uri: this.state.imageSource1 }} style={{ width: deviceWidth / 2 - 20, height: deviceHeigth / 5, borderRadius: 5, resizeMode: 'contain', transform: [{ rotate: '90deg' }] }} />
                                     <Text style={{ textAlign: 'center', marginTop: 5, fontWeight: 'bold', fontSize: Config.MainFontSize + 1 }}>点击上传带国徽一面</Text>
                                 </View>
                             }
@@ -282,22 +282,34 @@ export default class MyCollection extends Component {
                 }
             });
     }
-    handleCheckCard(dataSource) {
+    handleCheckCard(dataSource, response) {
         // debugger
         let coordinateArray = dataSource.card_region
         // coordinateArray 坐标数组
         //检测图片是不是符合标准
         let normal_width = Math.abs(coordinateArray[1].x - coordinateArray[0].x) //常规宽
         let normal_height = Math.abs(coordinateArray[3].y - coordinateArray[0].y) //常规高
-        if (dataSource.angle && dataSource.angle == 270) {
-            normal_width = Math.abs(coordinateArray[3].y - coordinateArray[0].y)
-            normal_height = Math.abs(coordinateArray[1].x - coordinateArray[0].x)
-        }
-        let mask_width = Platform.OS == 'ios' ? deviceWidth - 40 : deviceWidth * 0.9// 遮罩框宽度
-        let mask_height = Platform.OS == 'ios' ? (deviceWidth - 40) / 1.6 : deviceWidth * 0.9 * 400 / 620 // 遮罩框高度
+        // if (dataSource.angle && dataSource.angle == 270) {
+        //     normal_width = Math.abs(coordinateArray[3].y - coordinateArray[0].y)
+        //     normal_height = Math.abs(coordinateArray[1].x - coordinateArray[0].x)
+        // }
+        // let mask_width = Platform.OS == 'ios' ? deviceWidth - 40 : deviceWidth * 0.9// 遮罩框宽度
+        // let mask_height = Platform.OS == 'ios' ? (deviceWidth - 40) / 1.6 : deviceWidth * 0.9 * 400 / 620 // 遮罩框高度
+        let picRealWidth_t = response.width / 2
+        let picRealHeight_t = response.height / 2
+        let picRealWidth = picRealWidth_t < picRealHeight_t ? picRealWidth_t : picRealHeight_t
+        let picRealHeight = picRealWidth_t > picRealHeight_t ? picRealWidth_t : picRealHeight_t
+
+        // let bs = picRealHeight < picRealWidth ? (picRealHeight / deviceWidth) : (picRealWidth / deviceWidth)   //真实图片的宽与屏幕宽的倍数比
+        // let mask_width = (deviceWidth - 40) * bs// 遮罩框宽度
+        // let mask_height = (deviceWidth - 40) * 1.6 * bs  // 遮罩框高度
+
+        let mask_width = (deviceWidth - 40) * picRealWidth * 0.9 / deviceWidth // 遮罩框宽度
+        let mask_height = mask_width * (picRealHeight / picRealWidth)  // 遮罩框高度
+
         console.log('遮罩层宽高', mask_width, mask_height)
         let mask_area = mask_width * mask_height //遮罩框的面积
-        let mask_marginleft = Platform.OS == 'ios' ? 40 / 2 : (deviceWidth - mask_width) / 2 // 遮罩框的marginleft
+        // let mask_marginleft = Platform.OS == 'ios' ? 40 / 2 : (deviceWidth - mask_width) / 2 // 遮罩框的marginleft
         let a_oppsite = Math.abs(coordinateArray[1].x - coordinateArray[0].x)
         let a_oppsite_h = Math.abs(coordinateArray[1].y - coordinateArray[0].y)
         let a = hypotenuse(a_oppsite, a_oppsite_h)
@@ -314,8 +326,8 @@ export default class MyCollection extends Component {
         let d_oppsite_h = Math.abs(coordinateArray[2].y - coordinateArray[1].y)
         let d = hypotenuse(d_oppsite, d_oppsite_h)
 
-        if (normal_width < normal_height) { //判断是横向，而不是竖向
-            Toasts.show('请保持身份证横向摆放，重新上传', { position: -80 })
+        if (normal_width > normal_height) { //判断是横向，而不是竖向
+            Toasts.show('请按照相机图标提示重新拍照，重新上传', { position: -80 })
             return false
         }
         let de_ratio_a = a_oppsite > a_oppsite_h ? a_oppsite_h / a_oppsite : a_oppsite / a_oppsite_h //a偏移比例
@@ -337,6 +349,10 @@ export default class MyCollection extends Component {
     }
 
     handleRecognition_front(response) {
+        Toast.show({
+            type: Toast.mode.C2MobileToastLoading,
+            title: '正在识别...'
+        });
         //调用第三方接口识别身份正面
         console.log("图片信息", response)
         const fs = RNFetchBlob.fs;
@@ -363,11 +379,12 @@ export default class MyCollection extends Component {
                         // { "side": "face" } //身份证正反面类型: face / back
                     })
                 }).then((res) => {
+                    Toast.dismiss();
                     console.log(res)
                     var dataSource = JSON.parse(res._bodyText)
                     var imgWidth = Math.abs(dataSource.card_region[1].x - dataSource.card_region[0].x)
                     var imgHeight = Math.abs(dataSource.card_region[3].y - dataSource.card_region[0].y)
-                    if (!this.handleCheckCard(dataSource)) {
+                    if (!this.handleCheckCard(dataSource, response)) {
                         return
                     }
                     this.setState({
@@ -408,16 +425,23 @@ export default class MyCollection extends Component {
                     //     )
                     // }
                 }).catch((err) => {
+                    Toast.dismiss();
                     Toasts.show('请上传清晰的身份证正面照片', { position: -80 })
                     console.log('调用第三方接口失败', err)
                 })
             })
             .catch((err) => {
+                Toast.dismiss();
                 Toasts.show('图片检测异常，请重新上传', { position: -80 })
                 console.log("base64转换异常", err);
             });
     }
     handleRecognition_back(response) {
+        Toast.show({
+            type: Toast.mode.C2MobileToastLoading,
+            title: '正在识别...'
+        });
+        console.log("图片信息", response)
         //调用第三方接口识别身份反面
         let local_url = response.uri
         if (Platform.OS == 'ios') {
@@ -442,11 +466,12 @@ export default class MyCollection extends Component {
                         // { "side": "face" } //身份证正反面类型: face / back
                     })
                 }).then((res) => {
+                    Toast.dismiss();
                     console.log(res)
                     var dataSource = JSON.parse(res._bodyText)
                     var imgWidth = Math.abs(dataSource.card_region[1].x - dataSource.card_region[0].x)
                     var imgHeight = Math.abs(dataSource.card_region[3].y - dataSource.card_region[0].y)
-                    if (!this.handleCheckCard(dataSource)) {
+                    if (!this.handleCheckCard(dataSource, response)) {
                         return
                     }
                     this.setState({
@@ -487,11 +512,13 @@ export default class MyCollection extends Component {
                     //     )
                     // }
                 }).catch((err) => {
+                    Toast.dismiss();
                     Toasts.show('请上传清晰的身份证背面照片', { position: -80 })
                     console.log('调用第三方接口失败', err)
                 })
             })
             .catch((err) => {
+                Toast.dismiss();
                 Toasts.show('图片检测异常，请重新上传', { position: -80 })
                 console.log("base64转换异常", err);
             });
