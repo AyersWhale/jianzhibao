@@ -14,6 +14,9 @@
       <change beforePath="$PROJECT_DIR$/../Configuration.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Configuration.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/config/navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/config/navigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/MyJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/MyJob.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/project.xcworkspace/xcuserdata/gyx.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/jianzhibao.xcodeproj/project.xcworkspace/xcuserdata/gyx.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,19 +59,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/MaskView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2415">
-              <caret line="161" column="4" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chinacreator/qy/jianzhibao/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            <state relative-caret-position="1920">
+              <caret line="134" selection-start-line="134" selection-end-line="134" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,92 +71,46 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/fileManager/manager/C2OpenSourceManager.java">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="141">
+              <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../node_modules/react-native-pdf/android/build.gradle">
+        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/res/drawable/bd_ocr_id_card_locator_back.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/res/drawable/bd_ocr_id_card_locator_front.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/C2PaintView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="32" selection-start-column="32" selection-end-column="32" />
+            <state relative-caret-position="150">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
+        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/C2PaintViewGroup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="68" />
+            <state relative-caret-position="150">
+              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="78" column="17" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="17" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="58" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/provider_paths_main.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../node_modules/react-native-vector-icons/android/build.gradle">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile-amap/android/build.gradle">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>react-native:0.19.+</find>
-      <find>react-native:</find>
-      <find>maven.google.com</find>
-      <find>https://maven.google.com</find>
-      <find>minSdkVersion</find>
-      <find>PgyUpdateManager</find>
-      <find>provider_paths_main</find>
-      <find>FileProvider</find>
-      <find>appComponentFactor</find>
-      <find>path=&quot;Android/data/com/pgyersdk&quot;</find>
-      <find>distributionUrl</find>
-      <find>mC2CameraManager</find>
-      <find>getInstance</find>
-      <find>onSizeChanged</find>
       <find>float ratio = h &gt; w ? 0.9f : 0.72f;</find>
       <find>23</find>
       <find>Aspect</find>
@@ -179,6 +127,20 @@
       <find>compile 'com.pgyersdk:sdk:</find>
       <find>provider</find>
       <find>openFile</find>
+      <find>maskType</find>
+      <find>bd_ocr_id_card_locator_front</find>
+      <find>bd_ocr_id_card_locator_back</find>
+      <find>MASK_TYPE_ID_CARD_FRONT</find>
+      <find>maskColor</find>
+      <find>eraser</find>
+      <find>onSizeChanged</find>
+      <find>w</find>
+      <find>frame.left</find>
+      <find>onDraw</find>
+      <find>Width</find>
+      <find>Dimensions</find>
+      <find>MASK_TYPE_ID_CARD_BACK</find>
+      <find>deviceHeight</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/actionSheet</dir>
@@ -220,12 +182,12 @@
         <option value="$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/camera/activity/C2CameraActivity.java" />
         <option value="$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/camera/manager/C2CameraManager.java" />
         <option value="$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/camera/module/C2CameraModule.java" />
-        <option value="$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/MaskView.java" />
         <option value="$PROJECT_DIR$/../node_modules/react-native-vector-icons/android/build.gradle" />
         <option value="$PROJECT_DIR$/../node_modules/react-native-pdf/android/build.gradle" />
         <option value="$PROJECT_DIR$/../node_modules/react-native-compress/android/build.gradle" />
         <option value="$PROJECT_DIR$/../node_modules/react-native-camera/android/build.gradle" />
         <option value="$PROJECT_DIR$/../node_modules/react-native-camera/android/src/main/java/com/lwansbrough/RCTCamera/RCTCameraPackage.java" />
+        <option value="$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/MaskView.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
@@ -312,8 +274,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="8" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="5" />
     <option name="y" value="25" />
     <option name="width" value="1435" />
     <option name="height" value="805" />
@@ -343,7 +305,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -394,7 +356,7 @@
               <item name="chinacreator" type="462c0819:PsiDirectoryNode" />
               <item name="c2" type="462c0819:PsiDirectoryNode" />
               <item name="mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jianzhibao" type="1abcf292:AndroidViewProjectNode" />
@@ -404,8 +366,8 @@
               <item name="chinacreator" type="462c0819:PsiDirectoryNode" />
               <item name="c2" type="462c0819:PsiDirectoryNode" />
               <item name="mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="fileManager" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="paint" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jianzhibao" type="1abcf292:AndroidViewProjectNode" />
@@ -415,9 +377,9 @@
               <item name="chinacreator" type="462c0819:PsiDirectoryNode" />
               <item name="c2" type="462c0819:PsiDirectoryNode" />
               <item name="mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="fileManager" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="paint" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jianzhibao" type="1abcf292:AndroidViewProjectNode" />
@@ -427,7 +389,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -685,6 +646,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -924,7 +886,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="8" y="25" width="1435" height="805" extended-state="6" />
+    <frame x="5" y="25" width="1435" height="805" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.73362446" visible="true" weight="0.31083992" />
       <window_info id="Structure" order="1" sideWeight="0.49563318" weight="0.24964234" />
@@ -937,17 +899,17 @@
       <window_info id="Resources Explorer" order="8" sideWeight="0.49563318" weight="0.3297568" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4985694" weight="0.18181819" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49427754" weight="0.64914775" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49427754" weight="0.19444445" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48354793" weight="0.3902439" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49928468" weight="0.32916668" />
-      <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.49427754" weight="0.29411766" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.46781117" visible="true" weight="0.5906433" />
+      <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.49427754" weight="0.29385966" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.46781117" visible="true" weight="0.5365497" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.40057224" side_tool="true" weight="0.3650568" />
-      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49356222" weight="0.32753623" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49356222" weight="0.32748538" />
       <window_info anchor="bottom" id="Android Profiler" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="12" sideWeight="0.59942776" weight="0.48099416" />
+      <window_info anchor="bottom" id="Build" order="12" sideWeight="0.59942776" weight="0.45467836" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1048,10 +1010,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pgyersdk/sdk/3.0.10/86d38b815c49356c02cd7f442816b19d8aebad86/sdk-3.0.10-sources.jar!/com/pgyersdk/update/PgyUpdateManager.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pgyersdk/sdk/3.0.10/86d38b815c49356c02cd7f442816b19d8aebad86/sdk-3.0.10-sources.jar!/com/pgyersdk/update/CheckUpdateTask.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pgyersdk/sdk/3.0.10/86d38b815c49356c02cd7f442816b19d8aebad86/sdk-3.0.10-sources.jar!/com/pgyersdk/PgyerActivityManager.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pgyersdk/sdk/3.0.10/86d38b815c49356c02cd7f442816b19d8aebad86/sdk-3.0.10-sources.jar!/com/pgyersdk/update/DownloadFileListener.java" />
     <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-3.0.10.aar/37be2b06bc6f3b4ac2a521ae7bfd4eb1/res/xml/pgyer_network_security_config.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1091,16 +1049,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/MaskView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1515">
-          <caret line="125" selection-start-line="125" selection-end-line="125" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/camera/module/C2CameraModule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1116,8 +1064,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/res/layout/c2camera.xml">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/camera/activity/C2CameraActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1150,16 +1098,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/react-native-camera/android/build/generated/source/buildConfig/debug/com/lwansbrough/RCTCamera/BuildConfig.java" />
     <entry file="file://$PROJECT_DIR$/../node_modules/react-native-camera/android/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/rn-fetch-blob/android/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="62" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="62" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/react-native-camera/android/src/main/java/com/lwansbrough/RCTCamera/RCTSensorOrientationChecker.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1275,52 +1223,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2415">
-          <caret line="161" column="4" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chinacreator/qy/jianzhibao/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-pdf/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="32" selection-start-column="32" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1170">
           <caret line="78" column="17" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="17" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="32" column="58" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/provider_paths_main.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -1332,16 +1249,77 @@
     <entry file="file://$PROJECT_DIR$/../node_modules/react-native-vector-icons/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/react-native-pdf/android/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-470">
+          <caret column="32" selection-start-column="32" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile-amap/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/modules/fileManager/manager/C2OpenSourceManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+        <state relative-caret-position="142">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chinacreator/qy/jianzhibao/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/MaskView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1920">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/res/drawable/bd_ocr_id_card_locator_back.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/res/drawable/bd_ocr_id_card_locator_front.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/C2PaintView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../node_modules/c2-mobile/android/src/main/java/com/chinacreator/c2/mobile/views/paint/view/C2PaintViewGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
         </state>
       </provider>
     </entry>

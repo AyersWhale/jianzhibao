@@ -141,7 +141,7 @@ import Zhizhaoshenhe from '../pages/Zhizhaoshenhe';
 import Fabaoshenhe from '../pages/Fabaoshenhe';
 import ScanCodeLogin from '../pages/ScanCodeLogin';
 import ContactFj from '../pages/ContactFj';
-
+import TestListView from '../pages/contactList/testListView'
 const store = createStore();
 
 const RouterWithRedux = connect()(Router);
@@ -278,6 +278,7 @@ const scenes = Actions.create(
     <Scene key="Intended" component={Intended} title="意向行业" hideNavBar={true} />
     {/* <Scene key="GetVerifyCode" component={GetVerifyCode} title="验证码登陆" hideNavBar={true} />
     <Scene key="GetPhoneNum" component={GetPhoneNum} title="验证码登陆" hideNavBar={true} /> */}
+    <Scene key="TestListView" component={TestListView} title="TestListView" hideNavBar={true} />
   </Scene>
 );
 

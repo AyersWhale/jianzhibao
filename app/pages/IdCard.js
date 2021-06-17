@@ -284,6 +284,7 @@ export default class MyCollection extends Component {
     }
     handleCheckCard(dataSource, response) {
         // debugger
+        console.log('识别结果', dataSource)
         let coordinateArray = dataSource.card_region
         // coordinateArray 坐标数组
         //检测图片是不是符合标准
@@ -293,10 +294,19 @@ export default class MyCollection extends Component {
         //     normal_width = Math.abs(coordinateArray[3].y - coordinateArray[0].y)
         //     normal_height = Math.abs(coordinateArray[1].x - coordinateArray[0].x)
         // }
-        // let mask_width = Platform.OS == 'ios' ? deviceWidth - 40 : deviceWidth * 0.9// 遮罩框宽度
-        // let mask_height = Platform.OS == 'ios' ? (deviceWidth - 40) / 1.6 : deviceWidth * 0.9 * 400 / 620 // 遮罩框高度
-        let picRealWidth_t = response.width / 2
-        let picRealHeight_t = response.height / 2
+
+        let picRealWidth_t = (response.width / 2)  //ios是三倍图，安卓是2倍图
+        let picRealHeight_t = (response.height / 2)
+        if (Platform.OS == 'ios') {
+            if (response.picFrom == '0') {
+                picRealWidth_t = response.width
+                picRealHeight_t = response.height
+            } else {
+                picRealWidth_t = response.width / 3
+                picRealHeight_t = response.height / 3
+            }
+        }
+
         let picRealWidth = picRealWidth_t < picRealHeight_t ? picRealWidth_t : picRealHeight_t
         let picRealHeight = picRealWidth_t > picRealHeight_t ? picRealWidth_t : picRealHeight_t
 
@@ -304,7 +314,10 @@ export default class MyCollection extends Component {
         // let mask_width = (deviceWidth - 40) * bs// 遮罩框宽度
         // let mask_height = (deviceWidth - 40) * 1.6 * bs  // 遮罩框高度
 
-        let mask_width = (deviceWidth - 40) * picRealWidth * 0.9 / deviceWidth // 遮罩框宽度
+        // console.log('识别宽高', normal_width, normal_height)
+        // console.log('图片宽高', picRealWidth, picRealHeight)
+        // console.log('设备宽', deviceWidth)
+        let mask_width = (deviceWidth - 40) * picRealWidth * 0.9 / deviceWidth // 遮罩框宽度 0.9是用来计算遮罩层的容错面积
         let mask_height = mask_width * (picRealHeight / picRealWidth)  // 遮罩框高度
 
         console.log('遮罩层宽高', mask_width, mask_height)
@@ -526,6 +539,7 @@ export default class MyCollection extends Component {
     _camera() {//_camera表示正面，_camera1表示反面
         Camera.startWithPhoto({ maskType: 1 })
             .then((response) => {
+                response.picFrom = '0'
                 this.handleRecognition_front(response)
             })
             .catch((e) => {
@@ -567,6 +581,7 @@ export default class MyCollection extends Component {
     _camera1() {
         Camera.startWithPhoto({ maskType: 2 })
             .then((response) => {
+                response.picFrom = '0'
                 this.setState({
                     // imageSource1: response.uri,
                     status: false,
@@ -658,6 +673,7 @@ export default class MyCollection extends Component {
                             Fetch.postJson(Config.mainUrl + '/accountRegist/fddAuth', entityrz)
                                 .then((ress) => {
                                     // debugger
+                                    console.log('/accountRegist/fddAuth', ress)
                                     Toast.dismiss();
                                     if (ress.rcode == '1') {
                                         Fetch.postJson(Config.mainUrl + '/basicResume/updateUserIdCard', entity)

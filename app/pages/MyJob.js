@@ -438,21 +438,28 @@ export default class MyJob extends Component {
             })
     }
     agreeEnd(rowData) {
-        temp = {
-            positionId: rowData.positionId,
-            getJobId: rowData.getJobInfoId,
-            userId: rowData.userId,
-        }
-        Fetch.postJson(Config.mainUrl + '/getJobInfo/jobStopOther', temp)
-            .then((res) => {
-                if (res.rcode == '1') {
-                    this.getLSYGjobList()
-                    Toast.showInfo('提交成功', 1000);
-                } else {
-                    Toast.showInfo(res.Msg, 1000);
-                }
+        Alert.alert('温馨提示', '是否同意终止？', [
+            {
+                text: '确认', onPress: () => {
+                    temp = {
+                        positionId: rowData.positionId,
+                        getJobId: rowData.getJobInfoId,
+                        userId: rowData.userId,
+                    }
+                    Fetch.postJson(Config.mainUrl + '/getJobInfo/jobStopOther', temp)
+                        .then((res) => {
+                            if (res.rcode == '1') {
+                                this.getLSYGjobList()
+                                Toast.showInfo('提交成功', 1000);
+                            } else {
+                                Toast.showInfo(res.Msg, 1000);
+                            }
 
-            })
+                        })
+                }
+            },
+            { text: '取消', onPress: () => { } }
+        ])
     }
     checkReason(rowData) {
         temp = {
