@@ -3,10 +3,11 @@
 * Created by 蒋牧野.
 */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageStore, Image, ScrollView, Alert, ListView, PermissionsAndroid, Platform, NetInfo, Modal, ImageEditor, CameraRoll } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageStore, Image, ScrollView, Alert, ListView, PermissionsAndroid, Platform, NetInfo, Modal, ImageEditor, CameraRoll, PixelRatio } from 'react-native';
 import { UUID, Toast, FileManager, Actions, SafeArea, Config, Camera, ImagePicker, ActionSheet, VectorIcon, Fetch, UserInfo } from 'c2-mobile';
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeigth = Dimensions.get('window').height;
+const scale = Dimensions.get('window').scale
 import Toasts from 'react-native-root-toast';
 import PcInterface from '../utils/http/PcInterface';
 import Global from '../utils/GlobalStorage';
@@ -47,6 +48,8 @@ export default class MyCollection extends Component {
 
     componentDidMount() {
         this.openQuanxian()
+        console.log('分辨率', scale)
+        console.log('像素密度', PixelRatio.get())
     }
     openQuanxian() {
         if (Platform.OS == 'android') {
@@ -139,7 +142,7 @@ export default class MyCollection extends Component {
                         this.directLogin();
                     }}>
                         {(this.props.update) ? null : <View style={{ marginTop: 30, backgroundColor: 'transparent' }}>
-                            <Text style={{ color: 'rgb(65,143,234)', position: 'absolute', right: 5, bottom: 5 }}>跳过，直接登录</Text>
+                            <Text style={{ color: 'rgb(65,143,234)', textAlign: 'center' }}>跳过，直接登录</Text>
                         </View>}
                     </TouchableOpacity>
                 </ScrollView>
@@ -252,7 +255,7 @@ export default class MyCollection extends Component {
         FileManager.uploadFile(params)
             .then((respones) => {
                 Toast.dismiss();
-                console.log(respones)
+                console.log('上传结果', respones)
                 if (side == 'idCard_front') {
                     this.setState({
                         uploadInfo: respones.data.url,
@@ -295,17 +298,15 @@ export default class MyCollection extends Component {
         //     normal_height = Math.abs(coordinateArray[1].x - coordinateArray[0].x)
         // }
 
-        let picRealWidth_t = (response.width / 2)  //ios是三倍图，安卓是2倍图
-        let picRealHeight_t = (response.height / 2)
-        if (Platform.OS == 'ios') {
-            if (response.picFrom == '0') {
-                picRealWidth_t = response.width
-                picRealHeight_t = response.height
-            } else {
-                picRealWidth_t = response.width / 3
-                picRealHeight_t = response.height / 3
-            }
-        }
+        let picRealWidth_t = response.width
+        let picRealHeight_t = response.height
+        // if (Platform.OS == 'ios') {
+        //     if (response.picFrom == '0') {
+        //     } else {
+        //         picRealWidth_t = response.width / 3
+        //         picRealHeight_t = response.height / 3
+        //     }
+        // }
 
         let picRealWidth = picRealWidth_t < picRealHeight_t ? picRealWidth_t : picRealHeight_t
         let picRealHeight = picRealWidth_t > picRealHeight_t ? picRealWidth_t : picRealHeight_t
@@ -314,12 +315,11 @@ export default class MyCollection extends Component {
         // let mask_width = (deviceWidth - 40) * bs// 遮罩框宽度
         // let mask_height = (deviceWidth - 40) * 1.6 * bs  // 遮罩框高度
 
-        // console.log('识别宽高', normal_width, normal_height)
-        // console.log('图片宽高', picRealWidth, picRealHeight)
-        // console.log('设备宽', deviceWidth)
+        console.log('识别宽高', normal_width, normal_height)
+        console.log('图片宽高', picRealWidth, picRealHeight)
+        console.log('设备宽', deviceWidth)
         let mask_width = (deviceWidth - 40) * picRealWidth * 0.9 / deviceWidth // 遮罩框宽度 0.9是用来计算遮罩层的容错面积
         let mask_height = mask_width * (picRealHeight / picRealWidth)  // 遮罩框高度
-
         console.log('遮罩层宽高', mask_width, mask_height)
         let mask_area = mask_width * mask_height //遮罩框的面积
         // let mask_marginleft = Platform.OS == 'ios' ? 40 / 2 : (deviceWidth - mask_width) / 2 // 遮罩框的marginleft
@@ -362,10 +362,6 @@ export default class MyCollection extends Component {
     }
 
     handleRecognition_front(response) {
-        Toast.show({
-            type: Toast.mode.C2MobileToastLoading,
-            title: '正在识别...'
-        });
         //调用第三方接口识别身份正面
         console.log("图片信息", response)
         const fs = RNFetchBlob.fs;
@@ -378,6 +374,10 @@ export default class MyCollection extends Component {
         // url = "/Users/gyx/Library/Developer/CoreSimulator/Devices/8F09BA09-FAC7-4D7C-AD9D-568C54733095/data/Containers/Data/Application/288AD5BA-999A-4BE6-9905-520AE678409C/Library/Caches/image/72CE1C74-576F-4390-87C1-25D89CB16B1F.jpg"
         fs.readFile(local_url, 'base64')
             .then((content) => {
+                Toast.show({
+                    type: Toast.mode.C2MobileToastLoading,
+                    title: '正在识别...'
+                });
                 fetch('https://dm-51.data.aliyun.com/rest/160601/ocr/ocr_idcard.json', {
                     method: 'POST',
                     headers: {
@@ -404,42 +404,9 @@ export default class MyCollection extends Component {
                         imageSource: response.uri
                     })
                     this.uploadInfo_front(response, dataSource)
-                    // if (Platform.OS == 'ios') {
-                    //     this.setState({
-                    //         imageSource: response.uri
-                    //     })
-                    //     this.uploadInfo_front(response, dataSource)
-                    // } else {
-                    //     let size = { width: imgWidth, height: imgHeight }
-                    //     let offset = dataSource.card_region[0]
-                    //     if (dataSource.angle == 270) {
-                    //         size = { width: imgHeight, height: imgWidth }
-                    //         offset = [dataSource.card_region[0].y, dataSource.card_region[0].x]
-                    //     }
-                    //     var cropData = {
-                    //         offset: offset,//从原图裁剪的起始坐标
-                    //         size: size,//裁剪的宽高
-                    //         resizeMode: 'contain',//缩放图像时使用的调整大小模式
-                    //         displaySize: { width: imgWidth, height: imgHeight }//裁剪后生成图片的大小
-                    //         // displaySize: { width: deviceWidth, height: deviceWidth / 1.6 }//裁剪后生成图片的大小
-                    //     }
-                    //     ImageEditor.cropImage(response.uri,
-                    //         cropData, (successURI) => {
-                    //             console.log(successURI)
-                    //             this.setState({
-                    //                 imageSource: successURI
-                    //             }, () => {
-                    //                 this.uploadInfo_front({ ...response, uri: successURI }, dataSource)
-                    //             })
-                    //         },
-                    //         (error) => {
-                    //             console.log('剪裁失败', error)
-                    //         }
-                    //     )
-                    // }
                 }).catch((err) => {
                     Toast.dismiss();
-                    Toasts.show('请上传清晰的身份证正面照片', { position: -80 })
+                    Toasts.show('上传的身份证不清晰或图片尺寸过大,请拍照上传', { position: -80 })
                     console.log('调用第三方接口失败', err)
                 })
             })
@@ -540,6 +507,7 @@ export default class MyCollection extends Component {
         Camera.startWithPhoto({ maskType: 1 })
             .then((response) => {
                 response.picFrom = '0'
+                console.log("图片信息", response)
                 this.handleRecognition_front(response)
             })
             .catch((e) => {
