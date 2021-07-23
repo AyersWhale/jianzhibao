@@ -68,15 +68,19 @@ export default class TimeChange {
         } else if (nowyear - checkyear == num) {
             if (nowmouth - checkmouth < 0) {
                 return false
-            } else if (nowmouth - checkmouth == 0) {
+            } else if (nowmouth - checkmouth == 0) 
+            {
                 if (nowdate1 - checkdate1 < 0) {
                     return false
                 } else {
                     return true
                 }
+            }else
+            {
+                return true;
             }
         } else {
             return true
-        }
+        } 
     }
 }

@@ -45,6 +45,7 @@ export default class MyJob extends Component {
         var entity = {
             YF_IDCARD: UserInfo.loginSet.result.rdata.loginUserInfo.userIdcard == '' || UserInfo.loginSet.result.rdata.loginUserInfo.userIdcard == undefined ? '1' : UserInfo.loginSet.result.rdata.loginUserInfo.userIdcard,
         }
+        debugger;
         Fetch.postJson(Config.mainUrl + '/ws/getContractContent', entity)
             .then((res) => {
                 console.log(res)
@@ -64,6 +65,7 @@ export default class MyJob extends Component {
             type: Toast.mode.C2MobileToastLoading,
             title: '加载中...'
         });
+        debugger;
         Fetch.postJson(Config.mainUrl + '/getJobInfo/getJobList', UserInfo.loginSet.result.rdata.loginUserInfo.userIdcard == '' || UserInfo.loginSet.result.rdata.loginUserInfo.userIdcard == undefined ? '1' : UserInfo.loginSet.result.rdata.loginUserInfo.userIdcard)
             .then((res) => {
                 Toast.dismiss();
@@ -83,6 +85,7 @@ export default class MyJob extends Component {
                 Toast.showInfo('加载失败，请稍后重试', 3000)
             })
     }
+    //先找到入口
     render() {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return (
@@ -177,6 +180,7 @@ export default class MyJob extends Component {
         } 444
 
     }
+    //渲染数据
     _renderItem(rowData) {
         return (
             <View>
@@ -207,6 +211,8 @@ export default class MyJob extends Component {
         )
 
     }
+    //渲染数据
+     //Actions.LSYGJobInform跳转，跳转的form     Actions.LSYGJobInform 
     _renderItem1(rowData) {
         return (
             <View>

@@ -57,7 +57,7 @@ export default class MyApplicate extends Component {
                 Toast.dismiss();
             })
     }
-
+    //先找到入口
     render() {
         return (
             <View style={{ flex: 1 }}>

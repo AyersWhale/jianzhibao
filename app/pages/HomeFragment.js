@@ -546,12 +546,13 @@ export default class HomeFragment extends Component {
 
     //获取职位列表
     loadJobData(cond) {
+        debugger;
         //console.log('执行了loadJobData')
         this.getUnreadNum()
-        Toast.show({
-            type: Toast.mode.C2MobileToastLoading,
-            title: '加载中...'
-        });
+        // Toast.show({
+        //     type: Toast.mode.C2MobileToastLoading,
+        //     title: '加载中...'
+        // });
         let array = []
         //因后台原因，这里获取的是整个的职位数据，前端分页
         let url = Config.mainUrl + '/positionManagement/getPositionByPersonnelIntent?rows=10&page=1&sidx=&sord=&cond=' + encodeURI(JSON.stringify(cond))

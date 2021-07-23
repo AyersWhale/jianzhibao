@@ -182,9 +182,11 @@ export default class JobInform extends Component {
     }
     //获取职位详情
     getJobInformation() {
+        debugger;
         if (this.props.rowData.WORK_MODE == '合伙人' || this.props.rowData.workMode == 'LSYG') {
             //获取临时用工职位详情
-            Fetch.getJson(Config.mainUrl + '/temporaryWork/getTemporaryWorkDetail?id=' + this.props.rowData.ID)
+            debugger;
+            Fetch.getJson(Config.mainUrl + '/temporaryWork/getTemporaryWorkDetail?id=' + this.props.rowData.ID )
                 .then((res) => {
                     this.refresh(res[0].id)
                     console.log(res)
@@ -208,6 +210,7 @@ export default class JobInform extends Component {
                     })
                 })
         } else if (this.props.rowData.workMode == 'CHYW' || this.props.rowData.WORK_MODE == '撮合') {
+            debugger;
             Fetch.getJson(Config.mainUrl + '/transfer_temporaryWork/getTemporaryWorkDetail?id=' + this.props.rowData.ID)
                 .then((res) => {
                     this.refresh(res[0].id)
@@ -260,12 +263,17 @@ export default class JobInform extends Component {
 
     }
     loginMode() {
+        debugger;
         var entity = {
             userId: UserInfo.loginSet.result.rdata.loginUserInfo.userId
         }
+
+
+
         Fetch.postJson(Config.mainUrl + '/basicResume/checkUserIdCard', entity)
             .then((res) => {
                 if (res.rcode == 0) {//未填写身份证信息
+                    debugger;
                     // Actions.Jianli({ userName: this.userName, passWord: this.password, login: 1, userId: set.result.rdata.loginUserInfo.userId, telphone: set.result.rdata.loginUserInfo.userMobiletel1, idNum: set.result.rdata.loginUserInfo.userIdcard, uuid: UUID.v4() })
                     this.setState({
                         idcardUpdate: false,
@@ -273,6 +281,7 @@ export default class JobInform extends Component {
                         telphone: UserInfo.loginSet.result.rdata.loginUserInfo.userMobiletel1
                     })
                 } else {
+                    debugger;
                     Fetch.postJson(Config.mainUrl + '/basicResume/checkBasicResume', entity)
                         .then((res) => {
                             if (res.rcode == 0) {//未填写简历
@@ -994,13 +1003,16 @@ export default class JobInform extends Component {
                                 .then((res) => {
                                     Toast.dismiss();
                                     console.log(res)
+
+                             
                                     if (res.rcode == '1') {
                                         this.addApplyNumber();
                                         this.props.onblock();
                                         Toasts.show('投递成功', { position: px2dp(-80), duration: 1000 });
                                         this.setState({ toudi: true })
                                         Actions.pop({ refresh: { test: UUID.v4() } });
-                                    } else {
+                                    }  
+                                    else{
                                         Toasts.show('投递失败，请重试', { position: px2dp(-80), duration: 1000 });
                                     }
                                 })
@@ -1014,76 +1026,107 @@ export default class JobInform extends Component {
         }
 
     }
-    submit1() {
-        let jiebaojine = 0
-        if (this.state.SALARY !== '' || this.state.SALARY !== undefined) {
-            jiebaojine = parseFloat(this.state.SALARY)
-        }
-        if (this.state.toudi == true || this.props.rowData.status == true) {
-            Alert.alert("提示", "已申请"
+    temp(){
+        return new Promise((resolve, reject) => {
+        
+            Fetch.getJson(Config.mainUrl + '/accountRegist/getByUserIdReturnRemark4?userId=' + UserInfo.loginSet.result.rdata.loginUserInfo.userId)
+        .then((res) => {
+            if (res.rcode=="0") {
+                Alert.alert("提示",'请完善简历'
                 , [
                     {
                         text: "好的", onPress: () => {
                         }
                     },])
-        } else if (this.state.idcardUpdate == false) {
-            Alert.alert("提示", "请先完善简历"
-                , [
-                    {
-                        text: "再看看", onPress: () => {
+                    resolve(false)
+            }else{
+                resolve(true)
+            }
 
-                        }
-                    }, {
-                        text: "完善简历", onPress: () => {
-                            Actions.IdCard({ update: true, userId: this.state.userId, telphone: this.state.telphone });
-                        }
-                    },
-                ])
-            return
-        } else if (this.state.jianliUpdate == false) {
-            Alert.alert("提示", "请先完善简历"
-                , [
-                    {
-                        text: "再看看", onPress: () => {
-                        }
-                    }, {
-                        text: "完善简历", onPress: () => {
-                            Actions.Jianli({ update: true, userName: this.state.userName, passWord: this.state.passWord, login: 1, userId: this.state.userId, telphone: this.state.telphone, idNum: this.state.idNum, uuid: UUID.v4() })
-                        }
-                    },
-                ])
-            return
-        } else if (this.state.checkStatu !== '3' && this.props.rowData.WORK_MODE == '合伙人' && this.props.rowData.license == '0') {
-            Alert.alert("提示", "请先注册个人电子营业执照"
-                , [
-                    {
-                        text: "再看看", onPress: () => {
-                        }
-                    }, {
-                        text: "去注册", onPress: () => {
-                            Actions.PersonalAudit()
-                        }
-                    },
-                ])
-            return
-        }
-        // else if (jiebaojine >= 100000 && this.state.checkStatu !== '3') {//接包金额大于10w提醒
-        //     Alert.alert("提示", "接包金额达到10万元需注册营业执照才能接包"
-        //         , [
-        //             {
-        //                 text: "继续申请", onPress: () => {
-        //                     this.setState({ modalVisible: true })
-        //                 }
-        //             }, {
-        //                 text: "去注册", onPress: () => {
-        //                     Actions.PersonalAudit()
-        //                 }
-        //             },
-        //         ])
-        // }
-        else {
-            this.setState({ modalVisible: true })
-        }
+        })
+        })
+    }
+    submit1() {
+        debugger;
+        this.temp().then((res)=>{
+            if(res){
+                if (this.state.SALARY !== '' || this.state.SALARY !== undefined) {
+                    jiebaojine = parseFloat(this.state.SALARY)
+                }
+                if (this.state.toudi == true || this.props.rowData.status == true) {
+                    Alert.alert("提示", "已申请"
+                        , [
+                            {
+                                text: "好的", onPress: () => {
+                                }
+                            },])
+                } else if (this.state.idcardUpdate == false) {
+                    Alert.alert("提示", "请先完善简历"
+                        , [
+                            {
+                                text: "再看看", onPress: () => {
+        
+                                }
+                            }, {
+                                text: "完善简历", onPress: () => {
+                                    Actions.IdCard({ update: true, userId: this.state.userId, telphone: this.state.telphone });
+                                }
+                            },
+                        ])
+                    return
+                } else if (this.state.jianliUpdate == false) {
+                    Alert.alert("提示", "请先完善简历"
+                        , [
+                            {
+                                text: "再看看", onPress: () => {
+                                }
+                            }, {
+                                text: "完善简历", onPress: () => {
+                                    Actions.Jianli({ update: true, userName: this.state.userName, passWord: this.state.passWord, login: 1, userId: this.state.userId, telphone: this.state.telphone, idNum: this.state.idNum, uuid: UUID.v4() })
+                                }
+                            },
+                        ])
+                    return
+                } else if (this.state.checkStatu !== '3' && this.props.rowData.WORK_MODE == '合伙人' && this.props.rowData.license == '0') {
+                    Alert.alert("提示", "请先注册个人电子营业执照"
+                        , [
+                            {
+                                text: "再看看", onPress: () => {
+                                }
+                            }, {
+                                text: "去注册", onPress: () => {
+                                    Actions.PersonalAudit()
+                                }
+                            },
+                        ])
+                    return
+                }
+                // else if (jiebaojine >= 100000 && this.state.checkStatu !== '3') {//接包金额大于10w提醒
+                //     Alert.alert("提示", "接包金额达到10万元需注册营业执照才能接包"
+                //         , [
+                //             {
+                //                 text: "继续申请", onPress: () => {
+                //                     this.setState({ modalVisible: true })
+                //                 }
+                //             }, {
+                //                 text: "去注册", onPress: () => {
+                //                     Actions.PersonalAudit()
+                //                 }
+                //             },
+                //         ])
+                // }
+                else {
+                    this.setState({ modalVisible: true })
+                }
+            }
+        })
+        debugger;
+        let jiebaojine = 0
+
+ 
+
+
+     
 
     }
     makesure() {

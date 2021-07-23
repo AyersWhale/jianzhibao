@@ -33,7 +33,8 @@ export default class LSYGJobInform extends Component {
             COMPANY_NAME: '',
             showPDF: true,
         }
-        Fetch.getJson(Config.mainUrl + '/temporaryWork/getTemporaryWorkDetail?id=' + this.props.rowData.positionId)
+        //接收
+        Fetch.getJson(Config.mainUrl + '/temporaryWork/getTemporaryWorkDetail?id=' + this.props.rowData.positionId+'&status='+this.props.rowData.STATUS)
             .then((res) => {
                 console.log(res)
                 this.setState({

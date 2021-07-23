@@ -197,7 +197,9 @@ export default class MyCollection extends Component {
         // return
         var date = new Date();
         var year = date.getFullYear(); //获取完整的年份(4位)
-        if (year - parseInt(cardInfo.birth.substring(0, 4)) <= 16) {
+        var month=date.getMonth();
+       
+        if (checkAge(cardInfo.birth)==false) {
             //用JSON.parse()转数字，首位是0会报错
             Toasts.show('未满16岁身份证无效', { position: -60 });
             this.setState({

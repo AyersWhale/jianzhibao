@@ -263,6 +263,7 @@ export default class Jianli extends Component {
         }
         Fetch.postJson(Config.mainUrl + '/basicResume/checkBasicResume', entity)
             .then((res) => {
+                debugger
                 console.log('/basicResume/checkBasicResume结果', res)
                 if (res.data.postCode) {
                     var postCode = res.data.postCode
@@ -296,8 +297,8 @@ export default class Jianli extends Component {
                     urgenPhone: res.data.urgenPhone ? res.data.urgenPhone : '',
                     value_fangshi: res.data.workMethod ? workTypeByCode(res.data.workMethod) : '合伙人',//初始值 合伙人
                     // value_fangshi: res.data.workMethod == 'LSYG' ? '合伙人' : res.data.workMethod == 'FQRZ' ? '兼职' : res.data.workMethod == 'LWPQ' ? '抢单' : '',
-                    postCode: res.data.postCode ? res.data.postCode : '服务业',
-                    postName: res.data.intentPost ? res.data.intentPost : '15',
+                    // postCode: res.data.postCode ? res.data.postCode : '15',
+                    // postName: res.data.intentPost ? res.data.intentPost : '15',
                     ifShowZw: ifShowZw ? ifShowZw : this.state.ifShowZw,
                     Sfz: res.data.identifyNum
                 }, () => {
@@ -706,18 +707,18 @@ export default class Jianli extends Component {
                             }
                         }
                     }
-                    var postCode = res[0].postCode
+                    var postCode = res[0].postCode?res[0].postCode:'15'
                     var codeArr = postCode.split(',')
                     console.log(codeArr)
                     var arr = []
                     var zwList = this.state.zwList
-                    for (var i in zwList) {
-                        arr.push(zwList[i].dictdataName)
-                    }
+                    // for (var i in zwList) {
+                    //     arr.push(zwList[i].dictdataName)
+                    // }
                     var ifShowZw = this.state.ifShowZw
                     for (var j in codeArr) {
-                        for (var i in arr) {
-                            if (codeArr[j] == arr[i]) {
+                        for (var i in zwList) {
+                            if (codeArr[j] == zwList[i].dictdataName) {
                                 ifShowZw[i].show = true
                             }
                         }
@@ -765,11 +766,14 @@ export default class Jianli extends Component {
                         { show: res[0].partTime.indexOf("4") != -1 ? true : false }, { show: res[0].partTime.indexOf("5") != -1 ? true : false }, { show: res[0].partTime.indexOf("6") != -1 ? true : false }],
 
                         ifShowZw: ifShowZw,
-                        postCode: res[0].postCode ? res[0].postCode : '服务业',
-                        postName: res[0].intentPost ? res[0].intentPost : '15',
+                        // postCode: res[0].postCode ? res[0].postCode : '服务业',
+                        // postName: res[0].intentPost ? res[0].intentPost : '服务业',
                         //工作经历
                         workExperience: res[1],
-                    }, () => { this.getJZName(); this.getZCName(); this.getZWName() })
+                    }, () => { 
+                        this.getJZName(); 
+                        this.getZCName();
+                         this.getZWName()})
                 })
                 .catch((err) => {
                     console.log('viewBasicResume', err)
@@ -1818,6 +1822,7 @@ export default class Jianli extends Component {
         })
     }
     handleIntended(ds) {
+        debugger;
         console.log('回调')
         console.log(ds)
         var temp2 = '';
@@ -1827,9 +1832,11 @@ export default class Jianli extends Component {
                 temp2 = temp2 + ds[i].dictdataValue + "  ";
                 temp3 = temp3 + ds[i].dictdataName + ",";
             }
+            
         }
         var dictdataName = (temp3.slice(temp3.length - 1) == ',') ? temp3.slice(0, -1) : temp3;
         console.log(dictdataName)
+       
         this.setState({
             postCode: temp2,
             postName: dictdataName
